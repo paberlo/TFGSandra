@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,10 +13,7 @@
         android:layout_marginLeft="264dp"
         android:layout_marginStart="264dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/btn_play_ok"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:background="@drawable/btn_play_ok"/>
 
     <Button
         android:id="@+id/btn_parar"
@@ -25,23 +22,18 @@
         android:layout_marginLeft="316dp"
         android:layout_marginStart="316dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/btn_stop_ok"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:background="@drawable/btn_stop_ok" />
 
     <SeekBar
         android:id="@+id/seekBar1"
         android:layout_width="350dp"
-        android:layout_height="50dp"
+        android:layout_height="37dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="80dp"
         android:max="200"
         android:progressDrawable="@drawable/custom_progress"
-        android:thumb="@drawable/thumb"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:thumb="@drawable/thumb"/>
 
     <TextView
         android:id="@+id/txtview_progreso"
@@ -50,24 +42,85 @@
         android:layout_marginLeft="132dp"
         android:layout_marginStart="132dp"
         android:layout_marginTop="56dp"
-        android:text="Progreso"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:text="Progreso" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="163dp"
-        android:layout_height="165dp"
-        android:layout_marginLeft="108dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="152dp"
-        android:indeterminateDrawable="@drawable/estilo_progress"
-        android:max="200"
-        android:progress="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/minval"
+        android:layout_width="90dp"
+        android:layout_height="76dp"
+        android:layout_marginLeft="276dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="388dp"
+        android:text="Db" />
+
+    <TextView
+        android:id="@+id/minlabel"
+        android:layout_width="92dp"
+        android:layout_height="87dp"
+        android:layout_marginLeft="276dp"
+        android:layout_marginStart="276dp"
+        android:text="MINIMO"
+        android:layout_marginTop="464dp" />
+
+    <TextView
+        android:id="@+id/mmval"
+        android:layout_width="86dp"
+        android:layout_height="78dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="388dp"
+        android:text="DB" />
+
+    <TextView
+        android:id="@+id/avglabel"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
+        android:text="MEDIA"
+        android:layout_marginTop="468dp"/>
+
+    <TextView
+        android:id="@+id/maxval"
+        android:layout_width="93dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="388dp"
+        android:text="DB" />
+
+    <TextView
+        android:id="@+id/maxlabel"
+        android:layout_width="93dp"
+        android:layout_height="78dp"
+        android:layout_marginLeft="4dp"
+        android:text="MAXIMO"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="472dp" />
+
+    <TextView
+        android:id="@+id/curval"
+        android:layout_width="88dp"
+        android:layout_height="76dp"
+        android:layout_marginLeft="188dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="388dp"
+        android:text="DB" />
+
+    <TextView
+        android:id="@+id/curlabel"
+        android:layout_width="86dp"
+        android:layout_height="81dp"
+        android:layout_marginLeft="184dp"
+        android:text="REAL"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="468dp"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/grafico"
+        android:layout_width="369dp"
+        android:layout_height="254dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="124dp"/>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

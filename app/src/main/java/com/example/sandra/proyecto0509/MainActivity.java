@@ -2,9 +2,12 @@ package com.example.sandra.proyecto0509;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaRecorder;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +20,22 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+
 import java.io.File;
 import java.io.IOException;
-
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity
@@ -29,18 +45,45 @@ public class MainActivity extends AppCompatActivity
     private Button parar;
     private SeekBar barra1;
     private TextView mostrarPorcentaje;
-    private ProgressBar barracircular;
 
+    LineChart miChart;
+    TextView minimoValor;
+    TextView maximoValor;
+    TextView medioValor;
+    TextView curvaValor;
+    boolean esChart=false;
+
+    private boolean listening=true;
+    private boolean hilo=true;
+    private Thread thread;
+    float volumen=10000;
+    long tiempo=0;
+    long tiempoconcurrente=0;
+    ArrayList<Entry> yVals;
+    boolean refreshed=false;
 
     private Grabadora migrabador;
 
+    final Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            super.handleMessage(msg);
+            DecimalFormat df1 = new DecimalFormat("####.0");
+            if(msg.what == 1){
+                if(!esChart){
+                    InicializamosGrafico();
+                    return;
+                }
+                minimoValor.setText(df1.format(VariablesGlobales.minimodb));
+                medioValor.setText(df1.format((VariablesGlobales.minimodb+VariablesGlobales.maximodb)/2));
+                maximoValor.setText(df1.format(VariablesGlobales.maximodb));
+                curvaValor.setText(df1.format(VariablesGlobales.contador));
+                updateData(VariablesGlobales.contador,0);
+            }
+        }
+    };
 
-
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -91,131 +134,214 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //Declaramos la barra de progreso
-        barracircular=(ProgressBar)findViewById(R.id.progressBar);
-        barracircular.setVisibility(View.INVISIBLE);
+
+
 
         empezar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                barracircular.setVisibility(View.VISIBLE);
+
             }
         });
 
         //Declaramos la grabadora
         migrabador= new Grabadora();
+
+        minimoValor=(TextView)findViewById(R.id.minval);
+        medioValor=(TextView)findViewById(R.id.mmval);
+        maximoValor=(TextView)findViewById(R.id.maxval);
+        curvaValor=(TextView)findViewById(R.id.curval);
+
     }
 
 
 
-    /*
-    //GRABADORA
-    //Declaramos el archivo para guardar la grabacion
-    public File archivo;
-
-    //Declaramos una variable de tipo MediaRecorder
-    public MediaRecorder grabacion;
-
-    //Declaramos una variable que "escucha" el audio
-    public boolean escucha=false;
-
-    //Metodo para obtener el maximo valor
-    public float ObtenerAmplitudMax()
-    {
-        if(grabacion!=null)
-        {
-            try
-            {
-                return grabacion.getMaxAmplitude();
-            }catch (IllegalArgumentException e){}
-            return 0;
+    private void updateData(float val, long time) {
+        if(miChart==null){
+            return;
         }
-        else
-            return 5;
-    }
-
-    //Metodo que devuelve el archivo grabado
-    public File ObtenerArchivoAudio()
-    {
-        return archivo;
-    }
-
-    //Metodo que asigna el audio
-    public void AsignarArchivoAudio(File archivo)
-    {
-        this.archivo=archivo;
-    }
-
-    //Metodo utilizado para empezar a grabar
-    public boolean EmpezarGrabar()
-    {
-        if(archivo==null)
-            return false;
-        try
-        {
-            /*Inicializamos la variable grabacion para poder grabar
-             * pero antes de poder hacerlo hemos tenido que poner
-             * algunos permisos en el android manifest*/
-    /*
-            grabacion=new MediaRecorder();
-            grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
-            grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            grabacion.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-            grabacion.setOutputFile(archivo.getAbsolutePath());
-
-            //Comenzamos la grabacion
-            grabacion.prepare();
-            grabacion.start();
-            escucha=true;
-            return true;
-        }catch (IOException e)
-        {
-            grabacion.reset();
-            grabacion.release();
-            grabacion=null;
-            escucha=false;
-        }catch (IllegalStateException e)
-        {
-            PararGrabacion();
-            escucha=false;
-        }
-        return false;
-    }
-
-    //Metodo que detiene la grabacion
-    public void PararGrabacion()
-    {
-        if(grabacion!=null)
-        {
-            while(escucha)
-            {
-                try
-                {
-                    grabacion.stop();
-                    grabacion.release();
-                }catch (Exception e){}
+        if (miChart.getData() != null &&
+                miChart.getData().getDataSetCount() > 0) {
+            LineDataSet set1 = (LineDataSet)miChart.getData().getDataSetByIndex(0);
+            set1.setValues(yVals);
+            Entry entry=new Entry(tiempo,val);
+            set1.addEntry(entry);
+            if(set1.getEntryCount()>200){
+                set1.removeFirst();
+                set1.setDrawFilled(false);
             }
+            miChart.getData().notifyDataChanged();
+            miChart.notifyDataSetChanged();
+            miChart.invalidate();
+            tiempo++;
         }
-        grabacion=null;
-        escucha=false;
     }
 
-    //Metodo que elimina el audio
-    public void BorrarAudio()
+    private void InicializamosGrafico()
     {
-        PararGrabacion();
-        while(archivo!=null)
-        {
-            archivo.delete();
-            archivo=null;
+        if(miChart!=null){
+            if (miChart.getData() != null &&
+                    miChart.getData().getDataSetCount() > 0) {
+                tiempo++;
+                esChart=true;
+            }
+        }else{
+            tiempoconcurrente=new Date().getTime();
+            miChart = (LineChart) findViewById(R.id.grafico);
+            miChart.setViewPortOffsets(50, 20, 5, 60);
+            // no description text
+            miChart.setDescription(null);
+            // enable touch gestures
+            miChart.setTouchEnabled(true);
+            // enable scaling and dragging
+            miChart.setDragEnabled(false);
+            miChart.setScaleEnabled(true);
+            // if disabled, scaling can be done on x- and y-axis separately
+            miChart.setPinchZoom(false);
+            miChart.setDrawGridBackground(false);
+            //mChart.setMaxHighlightDistance(400);
+            XAxis x = miChart.getXAxis();
+            x.setLabelCount(10, false);
+            x.setEnabled(true);
+            x.setTextColor(Color.BLACK);
+            x.setPosition(XAxis.XAxisPosition.BOTTOM);
+            x.setDrawGridLines(true);
+            x.setAxisLineColor(Color.CYAN);
+            YAxis y = miChart.getAxisLeft();
+            y.setLabelCount(4, false);
+            y.setTextColor(Color.BLACK);
+            y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+            y.setDrawGridLines(false);
+            y.setAxisLineColor(Color.CYAN);
+            y.setAxisMinValue(0);
+            y.setAxisMaxValue(120);
+            miChart.getAxisRight().setEnabled(true);
+            yVals = new ArrayList<Entry>();
+            yVals.add(new Entry(0,0));
+            LineDataSet set1 = new LineDataSet(yVals, "DataSet 1");
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set1.setCubicIntensity(0.02f);
+            set1.setDrawFilled(true);
+            set1.setDrawCircles(false);
+            set1.setCircleColor(Color.RED);
+            set1.setHighLightColor(Color.rgb(244, 117, 117));
+            set1.setColor(Color.RED);
+            set1.setFillColor(Color.RED);
+            set1.setFillAlpha(100);
+            set1.setDrawHorizontalHighlightIndicator(false);
+            set1.setFillFormatter(new IFillFormatter() {
+                @Override
+                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                    return -10;
+                }
+            });
+            LineData data;
+            if (miChart.getData() != null &&
+                    miChart.getData().getDataSetCount() > 0) {
+                data =  miChart.getLineData();
+                data.clearValues();
+                data.removeDataSet(0);
+                data.addDataSet(set1);
+            }else {
+                data = new LineData(set1);
+            }
+
+            data.setValueTextSize(9f);
+            data.setDrawValues(false);
+            miChart.setData(data);
+            miChart.getLegend().setEnabled(false);
+            miChart.animateXY(2000, 2000);
+            // dont forget to refresh the drawing
+            miChart.invalidate();
+            esChart=true;
         }
+
     }
 
+    private void startListenAudio() {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (hilo) {
+                    try {
+                        if (listening) {
+                            volumen = migrabador.ObtenerAmplitudMax();  //Get the sound pressure value
+                            if (volumen > 0 && volumen < 1000000) {
+                                VariablesGlobales.PonerContadorDB(20 * (float) (Math.log10(volumen)));  //Change the sound pressure value to the decibel value
+                                // Update with thread
+                                Message message = new Message();
+                                message.what = 1;
+                                handler.sendMessage(message);
+                            }
+                        }
+                        if (refreshed) {
 
-    //MEDIDOR
-    KdGaugeView speedView;
-*/
+                            Thread.sleep(1200);
+                            refreshed = false;
+                        } else {
+                            Thread.sleep(200);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        listening = false;
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+    /**
+     * Start recording
+     * @param fFile
+     */
+    public void startRecord(File fFile){
+        try{
+            migrabador.AsignarArchivoAudio(fFile);
+            if (migrabador.EmpezarGrabar()) {
+                startListenAudio();
+            }else{
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            }
+        }catch(Exception e){
+            Toast.makeText(this, "error error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        File file = Archivo.createFile("temp.amr");
+        if (file != null) {
+            startRecord(file);
+        } else {
+            Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
+        }
+        listening = true;
+    }
 
+    /**
+     * Stop recording
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        listening = false;
+        migrabador.BorrarAudio(); //Stop recording and delete the recording file
+        thread = null;
+        esChart=false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (thread != null) {
+            hilo = false;
+            thread = null;
+        }
+        migrabador.BorrarAudio();
+        super.onDestroy();
+    }
 }
+
+
