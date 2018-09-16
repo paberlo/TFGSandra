@@ -23,7 +23,7 @@ public class PantallaPrincipal extends AppCompatActivity
             {
                 /*Mostramos la pantalla que queremos mostrar cuando
                 finalice el tiempo.*/
-                Intent intent= new Intent(PantallaPrincipal.this, MainActivity.class);
+                Intent intent= new Intent(PantallaPrincipal.this, PantallaSecundaria.class);
                 startActivity(intent);
                 finish();
             };

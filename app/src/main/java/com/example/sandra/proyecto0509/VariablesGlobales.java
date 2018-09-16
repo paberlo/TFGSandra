@@ -2,7 +2,7 @@ package com.example.sandra.proyecto0509;
 
 public class VariablesGlobales
 {
-    public static float contador=40;
+    public static float contador=45;
     public static float minimodb=100;
     public static float maximodb=0;
     public static float ultimovalor=contador;

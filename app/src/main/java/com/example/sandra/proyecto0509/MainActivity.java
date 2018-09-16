@@ -42,6 +42,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
 {
     private SeekBar barra1;
+    Button parar;
     private TextView mostrarPorcentaje;
 
     LineChart miChart;
@@ -94,7 +95,16 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
 
-
+        parar=(Button)findViewById(R.id.btn_parar);
+        parar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent= new Intent(MainActivity.this, PantallaScore.class);
+                startActivity(intent);
+            }
+        });
 
         //Asignamos el seekbar al layout
         barra1=(SeekBar)findViewById(R.id.seekBar1);
@@ -178,11 +188,11 @@ public class MainActivity extends AppCompatActivity
         }else{
             tiempoconcurrente=new Date().getTime();
             miChart = (LineChart) findViewById(R.id.grafico);
-            miChart.setViewPortOffsets(50, 20, 5, 60);
+            miChart.setViewPortOffsets(100, 20, 5, 60);
             // no description text
             miChart.setDescription(null);
             // enable touch gestures
-            miChart.setTouchEnabled(true);
+            miChart.setTouchEnabled(false);
             // enable scaling and dragging
             miChart.setDragEnabled(false);
             miChart.setScaleEnabled(true);
@@ -203,11 +213,11 @@ public class MainActivity extends AppCompatActivity
             y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
             y.setDrawGridLines(false);
             y.setAxisLineColor(Color.CYAN);
-            y.setAxisMinValue(0);
-            y.setAxisMaxValue(120);
+            y.setAxisMinValue(25);
+            y.setAxisMaxValue(200);
             miChart.getAxisRight().setEnabled(true);
             yVals = new ArrayList<Entry>();
-            yVals.add(new Entry(0,0));
+            yVals.add(new Entry(20,0));
             LineDataSet set1 = new LineDataSet(yVals, "DataSet 1");
             set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             set1.setCubicIntensity(0.02f);
@@ -217,7 +227,7 @@ public class MainActivity extends AppCompatActivity
             set1.setHighLightColor(Color.rgb(244, 117, 117));
             set1.setColor(Color.RED);
             set1.setFillColor(Color.RED);
-            set1.setFillAlpha(100);
+            set1.setFillAlpha(300);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setFillFormatter(new IFillFormatter() {
                 @Override
@@ -240,7 +250,7 @@ public class MainActivity extends AppCompatActivity
             data.setDrawValues(false);
             miChart.setData(data);
             miChart.getLegend().setEnabled(false);
-            miChart.animateXY(2000, 2000);
+            miChart.animateXY(1000, 1000);
             // dont forget to refresh the drawing
             miChart.invalidate();
             esChart=true;

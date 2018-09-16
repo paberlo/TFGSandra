@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PantallaScore" />
+        <activity android:name=".PantallaSecundaria" />
+        <activity android:name=".Informacion"></activity>
     </application>
 
 </manifest>

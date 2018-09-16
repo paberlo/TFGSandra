@@ -12,4 +12,9 @@
     <color name="azulmarino">#0000DD</color>
     <color name="morado">#9900FF</color>
     <color name="rosa">#FF3399</color>
+    <color name="rosa_clarito">#FF4081</color>
+    <color name="granate">#C51162</color>
+    <color name="moradito">#E040FB</color>
+    <color name="azul_clarito">#42A5F5</color>
+    <color name="azul_light">#29B6F6</color>
 </resources>
