@@ -1,6 +1,7 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -40,9 +41,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
 {
-
-    private Button empezar;
-    private Button parar;
     private SeekBar barra1;
     private TextView mostrarPorcentaje;
 
@@ -52,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     TextView medioValor;
     TextView curvaValor;
     boolean esChart=false;
+
+
 
     private boolean listening=true;
     private boolean hilo=true;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                 medioValor.setText(df1.format((VariablesGlobales.minimodb+VariablesGlobales.maximodb)/2));
                 maximoValor.setText(df1.format(VariablesGlobales.maximodb));
                 curvaValor.setText(df1.format(VariablesGlobales.contador));
-                updateData(VariablesGlobales.contador,0);
+                ActualizarDatos(VariablesGlobales.contador,0);
             }
         }
     };
@@ -94,9 +94,7 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
 
-        //Asignamos los botones al layout
-        empezar=(Button)findViewById(R.id.btn_empezar);
-        parar=(Button)findViewById(R.id.btn_parar);
+
 
         //Asignamos el seekbar al layout
         barra1=(SeekBar)findViewById(R.id.seekBar1);
@@ -134,31 +132,21 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-
-
-        empezar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-
-            }
-        });
-
         //Declaramos la grabadora
         migrabador= new Grabadora();
 
+
+        //Declaramos donde se van a almacenar los datos
         minimoValor=(TextView)findViewById(R.id.minval);
         medioValor=(TextView)findViewById(R.id.mmval);
         maximoValor=(TextView)findViewById(R.id.maxval);
         curvaValor=(TextView)findViewById(R.id.curval);
-
     }
 
 
 
-    private void updateData(float val, long time) {
+
+    private void ActualizarDatos(float val, long time) {
         if(miChart==null){
             return;
         }
@@ -260,7 +248,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void startListenAudio() {
+    private void EscucharAudio() {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -296,11 +284,11 @@ public class MainActivity extends AppCompatActivity
      * Start recording
      * @param fFile
      */
-    public void startRecord(File fFile){
+    public void Grabar(File fFile){
         try{
             migrabador.AsignarArchivoAudio(fFile);
             if (migrabador.EmpezarGrabar()) {
-                startListenAudio();
+                EscucharAudio();
             }else{
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
             }
@@ -314,7 +302,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         File file = Archivo.createFile("temp.amr");
         if (file != null) {
-            startRecord(file);
+            Grabar(file);
         } else {
             Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
         }
