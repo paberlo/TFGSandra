@@ -22,7 +22,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".PantallaScore" />
         <activity android:name=".PantallaSecundaria" />
-        <activity android:name=".Informacion"></activity>
+        <activity android:name=".Informacion" />
     </application>
 
 </manifest>
