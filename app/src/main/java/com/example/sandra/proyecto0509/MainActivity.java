@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity
     TextView medioValor;
     TextView curvaValor;
     boolean esChart=false;
-    boolean parado=false;
+    boolean parado=true;
+    boolean refresh=false;
 
 
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     long tiempo=0;
     long tiempoconcurrente=0;
     ArrayList<Entry> yVals;
-    boolean refreshed=false;
+
 
     private Grabadora migrabador;
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -90,22 +91,18 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
 
-        //parar la "grabacion" y que muestre en otra pantalla los resultados finalizados de max y min
-        start=(Button) findViewById(R.id.btn_start);
-        start.setOnClickListener(new View.OnClickListener()
-        {
+        start=(Button)findViewById(R.id.btn_start);
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                if(!parado) {
-                    listening = false;
-                    EscucharAudio();
-
-                    parado = true;
-                }
+            public void onClick(View view) {
+                refresh=true;
+                VariablesGlobales.minimodb=100;
+                VariablesGlobales.contador=0;
+                VariablesGlobales.ultimovalor=0;
+                VariablesGlobales.maximodb=0;
+                InicializamosGrafico();
             }
         });
-
 
         stop=(Button)findViewById(R.id.btn_stop);
         stop.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +110,11 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(parado){
                     migrabador.PararGrabacion();
-                    parado=false;
-                }
 
+                }
             }
         });
+
 
         //Asignamos el seekbar al layout
         barra1=(SeekBar)findViewById(R.id.seekBar1);
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
 
         //Declaramos un maximo de hasta donde el seekbar puede llegar
-        barra1.setMax(200);
+        barra1.setMax(100);
 
 
         //Inicializo el valor inicial del progreso
@@ -287,10 +284,10 @@ public class MainActivity extends AppCompatActivity
                                 handler.sendMessage(message);
                             }
                         }
-                        if (refreshed) {
+                        if (refresh) {
 
                             Thread.sleep(1200);
-                            refreshed = false;
+                            refresh = false;
                         } else {
                             Thread.sleep(200);
                         }
