@@ -1,22 +1,16 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +27,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +35,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
 {
     private SeekBar barra1;
-    Button parar;
+    Button start;
+    Button stop;
     private TextView mostrarPorcentaje;
 
     LineChart miChart;
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     TextView medioValor;
     TextView curvaValor;
     boolean esChart=false;
+    boolean parado=false;
 
 
 
@@ -95,14 +90,32 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
 
-        parar=(Button)findViewById(R.id.btn_parar);
-        parar.setOnClickListener(new View.OnClickListener()
+        //parar la "grabacion" y que muestre en otra pantalla los resultados finalizados de max y min
+        start=(Button) findViewById(R.id.btn_start);
+        start.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent= new Intent(MainActivity.this, PantallaScore.class);
-                startActivity(intent);
+                if(!parado) {
+                    listening = false;
+                    EscucharAudio();
+
+                    parado = true;
+                }
+            }
+        });
+
+
+        stop=(Button)findViewById(R.id.btn_stop);
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(parado){
+                    migrabador.PararGrabacion();
+                    parado=false;
+                }
+
             }
         });
 
