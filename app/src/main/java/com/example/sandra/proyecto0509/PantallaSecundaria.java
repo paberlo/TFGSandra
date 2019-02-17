@@ -25,7 +25,7 @@ public class PantallaSecundaria extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(PantallaSecundaria.this, MainActivity.class);
+                Intent intent=new Intent(PantallaSecundaria.this, PantallaMaximo.class);
                 startActivity(intent);
             }
         });

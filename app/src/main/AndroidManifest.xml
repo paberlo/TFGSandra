@@ -23,6 +23,10 @@
         <activity android:name=".PantallaScore" />
         <activity android:name=".PantallaSecundaria" />
         <activity android:name=".Informacion" />
+        <activity
+            android:name=".PantallaMaximo"
+            android:label="@string/title_activity_pantalla_maximo"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

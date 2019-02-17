@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,14 +32,19 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.example.sandra.proyecto0509.VariablesGlobales.contador;
+import static com.example.sandra.proyecto0509.VariablesGlobales.maximodb;
+import static com.example.sandra.proyecto0509.VariablesGlobales.minimodb;
+
 
 public class MainActivity extends AppCompatActivity
 {
-    private SeekBar barra1;
+
     Button start;
     Button stop;
-    private TextView mostrarPorcentaje;
 
+
+    ConstraintLayout layout;
     LineChart miChart;
     TextView minimoValor;
     TextView maximoValor;
@@ -72,15 +78,21 @@ public class MainActivity extends AppCompatActivity
                     return;
                 }
                 minimoValor.setText(df1.format(VariablesGlobales.minimodb));
-                medioValor.setText(df1.format((VariablesGlobales.minimodb+VariablesGlobales.maximodb)/2));
-                maximoValor.setText(df1.format(VariablesGlobales.maximodb));
-                curvaValor.setText(df1.format(VariablesGlobales.contador));
-                ActualizarDatos(VariablesGlobales.contador,0);
+                medioValor.setText(df1.format((VariablesGlobales.minimodb+ maximodb)/2));
+                maximoValor.setText(df1.format(maximodb));
+                curvaValor.setText(df1.format(contador));
+                ActualizarDatos(contador,0);
             }
         }
     };
 
 
+    public void PararGrafico(){
+        layout=findViewById(R.id.layout_DB);
+        layout.setVisibility(View.INVISIBLE);
+        miChart.setVisibility(View.INVISIBLE);
+
+    }
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -97,10 +109,10 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 refresh=true;
                 VariablesGlobales.minimodb=100;
-                VariablesGlobales.contador=0;
                 VariablesGlobales.ultimovalor=0;
-                VariablesGlobales.maximodb=0;
                 InicializamosGrafico();
+                layout.setVisibility(View.VISIBLE);
+                miChart.setVisibility(View.VISIBLE);
             }
         });
 
@@ -108,49 +120,20 @@ public class MainActivity extends AppCompatActivity
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(parado){
+               /* if(parado){
                     migrabador.PararGrabacion();
-
-                }
+                    parado=false;
+                    PararGrafico();
+                }*/
+                PararGrafico();
             }
         });
 
 
-        //Asignamos el seekbar al layout
-        barra1=(SeekBar)findViewById(R.id.seekBar1);
 
 
-        //Asignamos el textveiw al layout
-        mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
-
-        //Declaramos un maximo de hasta donde el seekbar puede llegar
-        barra1.setMax(100);
 
 
-        //Inicializo el valor inicial del progreso
-        barra1.setProgress(0);
-
-        barra1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
-            {
-                mostrarPorcentaje.setText(String.valueOf(i)+"db");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
-                Toast.makeText(getApplicationContext(),"Establecido el limite " + mostrarPorcentaje.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         //Declaramos la grabadora
         migrabador= new Grabadora();
