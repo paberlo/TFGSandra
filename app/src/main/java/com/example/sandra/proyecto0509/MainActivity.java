@@ -3,6 +3,7 @@ package com.example.sandra.proyecto0509;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
@@ -30,6 +31,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.example.sandra.proyecto0509.VariablesGlobales.contador;
@@ -43,16 +45,24 @@ public class MainActivity extends AppCompatActivity
     Button start;
     Button stop;
 
-
-    ConstraintLayout layout;
+    float umbral=-1;
+    ConstraintLayout layout,constraint;
     LineChart miChart;
     TextView minimoValor;
     TextView maximoValor;
     TextView medioValor;
     TextView curvaValor;
     boolean esChart=false;
-    boolean parado=true;
     boolean refresh=false;
+
+    private SeekBar barra1;
+    private TextView mostrarPorcentaje;
+
+    long temporizador=0;
+
+    MediaPlayer mediaplayer;
+
+
 
 
 
@@ -82,13 +92,22 @@ public class MainActivity extends AppCompatActivity
                 maximoValor.setText(df1.format(maximodb));
                 curvaValor.setText(df1.format(contador));
                 ActualizarDatos(contador,0);
+                if(Calendar.getInstance().getTimeInMillis()-temporizador>3000) {
+                    if (contador > umbral) {
+                        //Toast.makeText(MainActivity.this, "nivel de ruido muy alto", Toast.LENGTH_SHORT).show();
+                        mediaplayer.start();
+                        constraint.setBackgroundColor(Color.YELLOW);
+
+                    }
+                    temporizador=Calendar.getInstance().getTimeInMillis();
+                }
             }
         }
     };
 
 
     public void PararGrafico(){
-        layout=findViewById(R.id.layout_DB);
+       // layout=findViewById(R.id.layout_DB);
         layout.setVisibility(View.INVISIBLE);
         miChart.setVisibility(View.INVISIBLE);
 
@@ -98,21 +117,36 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //temporizador
+        temporizador=Calendar.getInstance().getTimeInMillis();
         //Permisos necesarios para poder grabar
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
+        layout=findViewById(R.id.layout_DB);
+        constraint=findViewById(R.id.constraint);
+
+        mediaplayer = MediaPlayer.create(this, R.raw.music);
 
         start=(Button)findViewById(R.id.btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refresh=true;
-                VariablesGlobales.minimodb=100;
-                VariablesGlobales.ultimovalor=0;
-                InicializamosGrafico();
-                layout.setVisibility(View.VISIBLE);
-                miChart.setVisibility(View.VISIBLE);
+
+                    File file = Archivo.createFile("temp.amr");
+                    if (file != null) {
+                        Grabar(file);
+                        listening = true;
+                        refresh=true;
+                        VariablesGlobales.minimodb=100;
+                        VariablesGlobales.ultimovalor=0;
+                        //InicializamosGrafico();
+                       // layout.setVisibility(View.VISIBLE);
+                       // miChart.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
+                    }
+
             }
         });
 
@@ -120,12 +154,50 @@ public class MainActivity extends AppCompatActivity
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* if(parado){
-                    migrabador.PararGrabacion();
-                    parado=false;
-                    PararGrafico();
+                miChart.setVisibility(View.INVISIBLE);
+                layout.setVisibility(View.INVISIBLE);
+                hilo=false;
+                constraint.setBackgroundColor(Color.WHITE);
+               //migrabador.PararGrabacion();
+            }
+        });
+
+        //Asignamos el seekbar al layout
+        barra1=(SeekBar)findViewById(R.id.seekBar1);
+        //Asignamos el textveiw al layout
+        mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
+
+
+        //Inicializo el valor inicial del progreso
+        barra1.setProgress(0);
+
+
+        mostrarPorcentaje.setText(barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
+        barra1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
+            {
+                umbral=(float)i;
+                mostrarPorcentaje.setText(i + "db" + "/" + barra1.getMax() + "db");
+                /*if(contador>=i){
+                    Toast.makeText(getApplicationContext(),"probando probando ", Toast.LENGTH_LONG).show();
                 }*/
-                PararGrafico();
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+               // Toast.makeText(getApplicationContext(),"Arrastrar ", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                Toast.makeText(getApplicationContext(),"Establecido el limite " + mostrarPorcentaje.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -279,6 +351,7 @@ public class MainActivity extends AppCompatActivity
                         listening = false;
                     }
                 }
+                return;
             }
         });
         thread.start();
@@ -303,13 +376,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        File file = Archivo.createFile("temp.amr");
+        /*File file = Archivo.createFile("temp.amr");
         if (file != null) {
             Grabar(file);
         } else {
             Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
         }
-        listening = true;
+        listening = true;*/
     }
 
     /**
