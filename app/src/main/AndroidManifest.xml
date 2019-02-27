@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -19,24 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".PantallaScore"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".PantallaSecundaria"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Informacion"
-            android:screenOrientation="portrait">
-        </activity>
         <activity
-            android:name=".PantallaMaximo"
-            android:label="@string/title_activity_pantalla_maximo"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PantallaSecundaria"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Informacion"
+            android:label="@string/title_activity_informacion"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Instrucciones"></activity>
     </application>
 
 </manifest>

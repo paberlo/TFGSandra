@@ -88,11 +88,11 @@ public class Grabadora
                 try
                 {
                     grabacion.stop();
-                    grabacion.release();
+                    //grabacion.release();
                 }catch (Exception e){}
             }
         }
-        grabacion=null;
+       // grabacion=null;
         escucha=false;
     }
 

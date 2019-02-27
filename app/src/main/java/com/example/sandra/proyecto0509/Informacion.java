@@ -1,38 +1,34 @@
 package com.example.sandra.proyecto0509;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-public class Informacion extends AppCompatActivity
-{
+public class Informacion extends AppCompatActivity {
+
+    ImageView atras;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion);
 
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        atras=findViewById(R.id.regresar);
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(Informacion.this, PantallaSecundaria.class);
+                startActivity(i);
+            }
+        });
 
 
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                Log.i("ActionBar", "Atrás!");
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

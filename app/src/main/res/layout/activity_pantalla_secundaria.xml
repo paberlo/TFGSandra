@@ -6,31 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".PantallaSecundaria">
 
-    <Button
-        android:id="@+id/btn_empezar"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="152dp"
-        android:background="@color/azul_light"
-        android:text="Empezar"
-        android:textStyle="italic"
-        android:textColor="@android:color/white"
+    <ImageView
+        android:id="@+id/ayuda"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.052"
+        app:srcCompat="@drawable/help" />
 
-    <Button
-        android:id="@+id/btn_informacion"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="96dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="284dp"
-        android:background="@color/moradito"
-        android:text="Instrucciones"
-        android:textStyle="italic"
-        android:textColor="@android:color/white"
+    <ImageView
+        android:id="@+id/btn_empezar"
+        android:layout_width="230dp"
+        android:layout_height="113dp"
+        android:layout_marginBottom="272dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/comenzar" />
+
+    <ImageView
+        android:id="@+id/btn_informacion"
+        android:layout_width="153dp"
+        android:layout_height="176dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871"
+        app:srcCompat="@drawable/instrucciones" />
 </android.support.constraint.ConstraintLayout>
