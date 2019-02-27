@@ -9,7 +9,7 @@ public class PantallaPrincipal extends AppCompatActivity
 {
 
     //Tiempo que la pantalla se esta mostrando
-    private final int DURACION_SPLASH=5000;
+    private final int DURACION_SPLASH=3000;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

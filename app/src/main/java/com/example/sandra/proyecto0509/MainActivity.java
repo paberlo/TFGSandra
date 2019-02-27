@@ -96,10 +96,13 @@ public class MainActivity extends AppCompatActivity
                     if (contador > umbral) {
                         //Toast.makeText(MainActivity.this, "nivel de ruido muy alto", Toast.LENGTH_SHORT).show();
                         mediaplayer.start();
-                        constraint.setBackgroundColor(Color.YELLOW);
+                        constraint.setBackgroundColor(Color.RED);
 
                     }
                     temporizador=Calendar.getInstance().getTimeInMillis();
+                    if(contador<umbral){
+                        constraint.setBackgroundColor(Color.WHITE);
+                    }
                 }
             }
         }
@@ -288,10 +291,10 @@ public class MainActivity extends AppCompatActivity
             set1.setCubicIntensity(0.02f);
             set1.setDrawFilled(true);
             set1.setDrawCircles(false);
-            set1.setCircleColor(Color.RED);
+            set1.setCircleColor(Color.YELLOW);
             set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setColor(Color.RED);
-            set1.setFillColor(Color.RED);
+            set1.setColor(Color.CYAN);
+            set1.setFillColor(Color.MAGENTA);
             set1.setFillAlpha(300);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setFillFormatter(new IFillFormatter() {
