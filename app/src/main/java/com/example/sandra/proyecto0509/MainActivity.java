@@ -1,6 +1,7 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -9,10 +10,13 @@ import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +65,10 @@ public class MainActivity extends AppCompatActivity
     long temporizador=0;
 
     MediaPlayer mediaplayer;
+
+    ImageView mas;
+    ImageView menos;
+    Button reiniciar;
 
 
 
@@ -201,6 +209,33 @@ public class MainActivity extends AppCompatActivity
             public void onStopTrackingTouch(SeekBar seekBar)
             {
                 Toast.makeText(getApplicationContext(),"Establecido el limite " + mostrarPorcentaje.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mas=findViewById(R.id.btn_mas);
+        menos=findViewById(R.id.btn_menos);
+        reiniciar=findViewById(R.id.btn_reiniciar);
+
+        reiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("¿Esta seguro que desea reiniciar el contador?")
+                                .setTitle("Importante")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                })
+                                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                        builder.show();
             }
         });
 
