@@ -12,7 +12,8 @@ public class PantallaSecundaria extends AppCompatActivity
 {
     ImageView informacion;
     ImageView empezar;
-    ImageView help;
+    ImageView resultados;
+
 
     private final int DURACION_SPLASH=8000;
 
@@ -24,7 +25,8 @@ public class PantallaSecundaria extends AppCompatActivity
 
         empezar=findViewById(R.id.btn_empezar);
         informacion=findViewById(R.id.btn_informacion);
-        help=findViewById(R.id.ayuda);
+        resultados=findViewById(R.id.btn_resultados);
+
 
         empezar.setOnClickListener(new View.OnClickListener()
         {
@@ -46,12 +48,17 @@ public class PantallaSecundaria extends AppCompatActivity
             }
         });
 
-        help.setOnClickListener(new View.OnClickListener() {
+        resultados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(PantallaSecundaria.this, Instrucciones.class);
+                Intent intent=new Intent(PantallaSecundaria.this, Resultados.class);
                 startActivity(intent);
             }
         });
+
+
+
+
+
     }
 }
