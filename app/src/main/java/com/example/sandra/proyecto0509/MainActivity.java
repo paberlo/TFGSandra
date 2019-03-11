@@ -1,6 +1,7 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -34,7 +35,11 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     ImageView mas;
     ImageView menos;
     Button reiniciar;
-    EditText numero_contador;
+    TextView numero_contador;
 
 
 
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity
                         //Toast.makeText(MainActivity.this, "nivel de ruido muy alto", Toast.LENGTH_SHORT).show();
                         mediaplayer.start();
                         constraint.setBackgroundColor(Color.RED);
+                        numero_contador.setText(String.valueOf(Integer.parseInt(numero_contador.getText().toString())+1));
 
                     }
                     temporizador=Calendar.getInstance().getTimeInMillis();
@@ -120,6 +126,7 @@ public class MainActivity extends AppCompatActivity
     };
 
 
+
     public void PararGrafico(){
        // layout=findViewById(R.id.layout_DB);
         layout.setVisibility(View.INVISIBLE);
@@ -130,6 +137,38 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Leemos el fichero
+        File file = new File("./fechas.txt");
+        if(file.exists()){
+            BufferedReader reader = null;
+            String line, lastline="";
+            try {
+                reader = new BufferedReader(new FileReader("./fechas.txt"));
+
+                while ((line = reader.readLine()) != null)
+                {
+                    lastline=line;
+                }
+                reader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Date ultimafecha=new Date(Long.parseLong(lastline.split(" ")[0]));
+            if(ultimafecha.getDate()==Calendar.DAY_OF_MONTH && Calendar.MONTH==ultimafecha.getMonth() && Calendar.YEAR==ultimafecha.getYear()){
+                numero_contador.setText(Integer.parseInt(lastline.split(" ")[1]));
+            }
+            //cuando el fichero no existe crearlo, y cuando existe y la ultima fecha no es la actual, crear otra linea
+            // y poner el contador a 0
+            //cuando se cierra la aplicacion se actualice el fichero
+
+
+        }else{
+
+        }
+        String cwd = new File("").getAbsolutePath();
+        //System.out.println();
+        System.out.println("CWD"+cwd);
+        //File dir = context.getDir(userfavorites, Context.MODE_PRIVATE);
 
         //temporizador
         temporizador=Calendar.getInstance().getTimeInMillis();
@@ -218,6 +257,22 @@ public class MainActivity extends AppCompatActivity
         mas=findViewById(R.id.btn_mas);
         menos=findViewById(R.id.btn_menos);
         reiniciar=findViewById(R.id.btn_reiniciar);
+        numero_contador=findViewById(R.id.text_view_contador);
+        mas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
+
+        menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override

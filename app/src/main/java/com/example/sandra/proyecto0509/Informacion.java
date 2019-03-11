@@ -11,21 +11,14 @@ import android.widget.ImageView;
 
 public class Informacion extends AppCompatActivity {
 
-    ImageView atras;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacion);
 
-        atras=findViewById(R.id.regresar);
-        atras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i= new Intent(Informacion.this, PantallaSecundaria.class);
-                startActivity(i);
-            }
-        });
+
 
 
 
