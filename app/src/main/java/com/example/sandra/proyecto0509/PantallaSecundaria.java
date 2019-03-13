@@ -11,8 +11,8 @@ import android.widget.ImageView;
 public class PantallaSecundaria extends AppCompatActivity
 {
     ImageView informacion;
-    ImageView empezar;
-    ImageView resultados;
+    Button empezar;
+    Button resultados;
 
 
     private final int DURACION_SPLASH=8000;

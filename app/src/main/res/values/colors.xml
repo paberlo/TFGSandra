@@ -10,11 +10,11 @@
     <color name="amarillo">#FFFF00</color>
     <color name="verde">#00FF00</color>
     <color name="azulmarino">#0000DD</color>
-    <color name="morado">#9900ff</color>
+    <color name="morado">#9900FF</color>
     <color name="rosa">#ff337a</color>
     <color name="rosa_clarito">#FF4081</color>
     <color name="granate">#C51162</color>
-    <color name="moradito">#e040fb</color>
+    <color name="moradito">#F7E040FB</color>
     <color name="azul_clarito">#42a5f5</color>
     <color name="azul_light">#29b6f6</color>
     <color name="rojito">#E53935</color>

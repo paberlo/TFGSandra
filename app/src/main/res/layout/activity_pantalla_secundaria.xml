@@ -7,24 +7,6 @@
     tools:context=".PantallaSecundaria">
 
     <ImageView
-        android:id="@+id/btn_empezar"
-        android:layout_width="230dp"
-        android:layout_height="113dp"
-        android:layout_marginBottom="272dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643"
-        app:srcCompat="@drawable/comenzar" />
-
-    <ImageView
         android:id="@+id/btn_informacion"
         android:layout_width="51dp"
         android:layout_height="64dp"
@@ -42,21 +24,39 @@
         app:layout_constraintVertical_bias="0.017"
         app:srcCompat="@drawable/instrucciones" />
 
-    <ImageView
-        android:id="@+id/btn_resultados"
-        android:layout_width="230dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+    <Button
+        android:id="@+id/btn_empezar"
+        android:layout_width="284dp"
+        android:layout_height="84dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/granate"
+        android:text="Comenzar"
+        android:textColor="@color/label_text_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.671"
-        app:srcCompat="@drawable/historico" />
+        app:layout_constraintVertical_bias="0.343" />
+
+    <Button
+        android:id="@+id/btn_resultados"
+        android:layout_width="292dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/morado"
+        android:text="Registro"
+        android:textColor="@color/label_text_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.706" />
 </android.support.constraint.ConstraintLayout>
