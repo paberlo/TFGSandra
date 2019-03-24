@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
 
         //Bases de Datos
         // proviene del layout, son los campos de texto
-        et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
+        //et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
 
 
 
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity
         curvaValor=(TextView)findViewById(R.id.curval);
     }
 
-    //Bases de Datos
+    /*//Bases de Datos
     // Damos de alta los usuarios en nuestra aplicación
     public void alta(View v) {
 
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    /* Método para dar de baja al usuario insertado*/
+    *//* Método para dar de baja al usuario insertado*//*
     public void baja(View v) {
 
         BaseDatos admin = new BaseDatos(this,
@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /* fin del programa */
+    *//* fin del programa */
 
 
 
