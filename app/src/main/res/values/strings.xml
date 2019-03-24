@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Agenda21 Escolar TFGSandra</string>
+    <string name="app_name">AG21 EscolarTFG</string>
     <string name="title_activity_informacion">InformacionActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_pantalla_maximo">PantallaMaximo</string>
     <string name="title_activity_resultados">Resultados</string>
+    <string name="title_activity_registro_usuarios">RegistroUsuarios</string>
 </resources>

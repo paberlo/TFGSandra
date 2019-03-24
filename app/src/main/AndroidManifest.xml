@@ -13,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".RegistroUsuarios"
+            android:label="@string/title_activity_registro_usuarios"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Resultados"
             android:label="@string/title_activity_resultados"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PantallaPrincipal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

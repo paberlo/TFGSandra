@@ -15,8 +15,6 @@ public class PantallaSecundaria extends AppCompatActivity
     Button resultados;
 
 
-    private final int DURACION_SPLASH=8000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

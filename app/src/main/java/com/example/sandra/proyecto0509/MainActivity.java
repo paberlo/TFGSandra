@@ -1,9 +1,12 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -50,8 +54,11 @@ import static com.example.sandra.proyecto0509.VariablesGlobales.maximodb;
 import static com.example.sandra.proyecto0509.VariablesGlobales.minimodb;
 
 
+
 public class MainActivity extends AppCompatActivity
 {
+
+    private EditText et1, et2;
 
     Button start;
     Button stop;
@@ -77,9 +84,6 @@ public class MainActivity extends AppCompatActivity
     ImageView menos;
     Button reiniciar;
     TextView numero_contador;
-
-
-
 
 
     private boolean listening=true;
@@ -137,6 +141,15 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Bases de Datos
+        // proviene del layout, son los campos de texto
+        et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
+
+
+
+
+
         //Leemos el fichero
         File file = new File("./fechas.txt");
         if(file.exists()){
@@ -284,7 +297,7 @@ public class MainActivity extends AppCompatActivity
                                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                                        numero_contador.setText("0");
                                     }
                                 })
                                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -305,6 +318,8 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+
         //Declaramos la grabadora
         migrabador= new Grabadora();
 
@@ -315,6 +330,134 @@ public class MainActivity extends AppCompatActivity
         maximoValor=(TextView)findViewById(R.id.maxval);
         curvaValor=(TextView)findViewById(R.id.curval);
     }
+
+    //Bases de Datos
+    // Damos de alta los usuarios en nuestra aplicación
+    public void alta(View v) {
+
+        BaseDatos admin = new BaseDatos(this, "administracion", null, 1);
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        String dni = et1.getText().toString();
+        String nombre = et2.getText().toString();
+
+
+        ContentValues registro = new ContentValues();
+
+        registro.put("dni", dni);
+        registro.put("nombre", nombre);
+
+
+        // los inserto en la base de datos
+        bd.insert("usuario", null, registro);
+
+        bd.close();
+
+        // ponemos los campos a vacío para insertar el siguiente usuario
+        et1.setText(""); et2.setText("");
+
+        Toast.makeText(this, "Datos del usuario cargados", Toast.LENGTH_SHORT).show();
+
+    }
+
+    // Hacemos búsqueda de usuario por DNI
+    public void consulta(View v) {
+
+        BaseDatos admin = new BaseDatos(this,
+
+                "administracion", null, 1);
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        String dni = et1.getText().toString();
+
+        Cursor fila = bd.rawQuery(
+
+                "select nombre from usuario where dni=" + dni, null);
+
+        if (fila.moveToFirst()) {
+
+            et2.setText(fila.getString(0));
+
+        } else
+
+            Toast.makeText(this, "No existe ningún usuario con ese dni",
+
+                    Toast.LENGTH_SHORT).show();
+
+        bd.close();
+
+    }
+
+
+    /* Método para dar de baja al usuario insertado*/
+    public void baja(View v) {
+
+        BaseDatos admin = new BaseDatos(this,
+
+                "administracion", null, 1);
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        String dni = et1.getText().toString();
+
+        // aquí borro la base de datos del usuario por el dni
+        int cant = bd.delete("usuario", "dni=" + dni, null);
+
+        bd.close();
+
+        et1.setText(""); et2.setText("");
+
+        if (cant == 1)
+
+            Toast.makeText(this, "Usuario eliminado",
+
+                    Toast.LENGTH_SHORT).show();
+
+        else
+
+            Toast.makeText(this, "No existe usuario",
+
+                    Toast.LENGTH_SHORT).show();
+    }
+
+
+    // Método para modificar la información del usuario
+    public void modificacion(View v) {
+
+        BaseDatos admin = new BaseDatos(this, "administracion", null, 1);
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        String dni = et1.getText().toString();
+        String nombre = et2.getText().toString();
+
+
+        ContentValues registro = new ContentValues();
+
+        // actualizamos con los nuevos datos, la información cambiada
+        registro.put("nombre", nombre);
+
+        int cant = bd.update("usuario", registro, "dni=" + dni, null);
+
+        bd.close();
+
+        if (cant == 1)
+
+            Toast.makeText(this, "Datos modificados con éxito", Toast.LENGTH_SHORT)
+
+                    .show();
+
+        else
+
+            Toast.makeText(this, "No existe usuario",
+
+                    Toast.LENGTH_SHORT).show();
+
+    }
+
+    /* fin del programa */
 
 
 
