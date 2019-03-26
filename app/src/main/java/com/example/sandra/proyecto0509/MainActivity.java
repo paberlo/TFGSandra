@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.io.BufferedReader;
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity
     ImageView menos;
     Button reiniciar;
     TextView numero_contador;
+
+    DatabaseReference databaseReference;
 
 
     private boolean listening=true;
@@ -146,6 +151,7 @@ public class MainActivity extends AppCompatActivity
         // proviene del layout, son los campos de texto
         //et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
 
+        databaseReference=FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -274,16 +280,14 @@ public class MainActivity extends AppCompatActivity
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
+                numero_contador.setText(String.valueOf(Integer.parseInt(numero_contador.getText().toString())+1));
             }
         });
 
         menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                numero_contador.setText(String.valueOf(Integer.parseInt(numero_contador.getText().toString())-1));
             }
         });
 
@@ -291,16 +295,24 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage("¿Esta seguro que desea reiniciar el contador?")
+                        builder.setMessage("¿Que desea hacer?")
                                 .setTitle("Importante")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                .setIcon(android.R.drawable.ic_dialog_alert
+                                )
+                                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        numero_contador.setText("0");
+                                        //numero_contador.setText("0");
+                                        String userE=numero_contador.getText().toString();
+
+                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
+                                        //String id=databaseReference.push().getKey();
+
+                                        BaseDatos user=new BaseDatos(userE);
+                                        databaseReference.child("meses").child(userE).setValue(user);
                                     }
                                 })
-                                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                .setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -320,6 +332,8 @@ public class MainActivity extends AppCompatActivity
         maximoValor=(TextView)findViewById(R.id.maxval);
         curvaValor=(TextView)findViewById(R.id.curval);
     }
+
+
 
     private void ActualizarDatos(float val, long time) {
         if(miChart==null){

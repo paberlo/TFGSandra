@@ -15,7 +15,8 @@ public class PantallaSecundaria extends AppCompatActivity
     Button empezar;
     Button resultados;
 
-    TextView tv1,tv2,tv3,tv4;
+    TextView tv1;
+    public static final String user="names";
 
 
     @Override
@@ -29,9 +30,8 @@ public class PantallaSecundaria extends AppCompatActivity
         resultados=findViewById(R.id.btn_resultados);
 
         tv1=findViewById(R.id.tvnombre);
-        tv2=findViewById(R.id.tvusername);
-        tv3=findViewById(R.id.tvpassword);
-        tv4=findViewById(R.id.tvedad);
+        String user = getIntent().getStringExtra("names");
+        tv1.setText(user);
 
         //recibimos los diferentes intents
         Intent intent=getIntent();
@@ -41,10 +41,10 @@ public class PantallaSecundaria extends AppCompatActivity
         int age=intent.getIntExtra("age",-1);
 
         //asignamos los datos a nuestros textviews
-        tv1.setText(name);
-        tv2.setText(username);
-        tv3.setText(password);
-        tv4.setText(age+"");
+        //tv1.setText(name);
+        //tv2.setText(username);
+        //tv3.setText(password);
+        //tv4.setText(age+"");
 
 
         empezar.setOnClickListener(new View.OnClickListener()
