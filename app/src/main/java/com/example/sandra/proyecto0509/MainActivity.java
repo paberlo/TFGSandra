@@ -306,10 +306,11 @@ public class MainActivity extends AppCompatActivity
                                         String userE=numero_contador.getText().toString();
 
                                         //Recuperamos el usuario por el id que se genera de manera aleatoria
-                                        //String id=databaseReference.push().getKey();
+                                        String id=databaseReference.push().getKey();
+
 
                                         BaseDatos user=new BaseDatos(userE);
-                                        databaseReference.child("meses").child(userE).setValue(user);
+                                        databaseReference.child(id).child(userE).setValue(user);
                                     }
                                 })
                                 .setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {

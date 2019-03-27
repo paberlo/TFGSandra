@@ -9,15 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 public class PantallaSecundaria extends AppCompatActivity
 {
     ImageView informacion;
     Button empezar;
     Button resultados;
 
-    TextView tv1;
+    TextView tv1,tv2;
     public static final String user="names";
 
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,21 +33,9 @@ public class PantallaSecundaria extends AppCompatActivity
         resultados=findViewById(R.id.btn_resultados);
 
         tv1=findViewById(R.id.tvnombre);
+        tv2=findViewById(R.id.tvname);
         String user = getIntent().getStringExtra("names");
         tv1.setText(user);
-
-        //recibimos los diferentes intents
-        Intent intent=getIntent();
-        String name=intent.getStringExtra("name");
-        String username=intent.getStringExtra("username");
-        String password=intent.getStringExtra("password");
-        int age=intent.getIntExtra("age",-1);
-
-        //asignamos los datos a nuestros textviews
-        //tv1.setText(name);
-        //tv2.setText(username);
-        //tv3.setText(password);
-        //tv4.setText(age+"");
 
 
         empezar.setOnClickListener(new View.OnClickListener()
@@ -52,6 +43,9 @@ public class PantallaSecundaria extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                /*String userE=tv1.getText().toString();
+                BaseDatos user=new BaseDatos(userE);
+                databaseReference.child(tv2.getText().toString()).child(userE).setValue(user);*/
                 Intent intent=new Intent(PantallaSecundaria.this, MainActivity.class);
                 startActivity(intent);
             }
