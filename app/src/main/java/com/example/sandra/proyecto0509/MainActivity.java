@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +13,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -29,6 +32,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sandra.proyecto0509.Objetos.FirebaseReferences;
+import com.example.sandra.proyecto0509.Objetos.Usuario;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -38,8 +43,13 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.io.BufferedReader;
@@ -86,7 +96,10 @@ public class MainActivity extends AppCompatActivity
     ImageView mas;
     ImageView menos;
     Button reiniciar;
+    Button salir;
     TextView numero_contador;
+
+    //private SharedPreferences prefs;
 
     DatabaseReference databaseReference;
 
@@ -151,13 +164,12 @@ public class MainActivity extends AppCompatActivity
         // proviene del layout, son los campos de texto
         //et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
 
+        /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
+
         databaseReference=FirebaseDatabase.getInstance().getReference();
-
-
-
-
         //Leemos el fichero
-        File file = new File("./fechas.txt");
+       /* File file = new File("./fechas.txt");
         if(file.exists()){
             BufferedReader reader = null;
             String line, lastline="";
@@ -175,18 +187,18 @@ public class MainActivity extends AppCompatActivity
             Date ultimafecha=new Date(Long.parseLong(lastline.split(" ")[0]));
             if(ultimafecha.getDate()==Calendar.DAY_OF_MONTH && Calendar.MONTH==ultimafecha.getMonth() && Calendar.YEAR==ultimafecha.getYear()){
                 numero_contador.setText(Integer.parseInt(lastline.split(" ")[1]));
-            }
+            }*/
             //cuando el fichero no existe crearlo, y cuando existe y la ultima fecha no es la actual, crear otra linea
             // y poner el contador a 0
             //cuando se cierra la aplicacion se actualice el fichero
 
 
-        }else{
+        /*}else{
 
-        }
-        String cwd = new File("").getAbsolutePath();
+        }*/
+        /*String cwd = new File("").getAbsolutePath();
         //System.out.println();
-        System.out.println("CWD"+cwd);
+        System.out.println("CWD"+cwd);*/
         //File dir = context.getDir(userfavorites, Context.MODE_PRIVATE);
 
         //temporizador
@@ -205,6 +217,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                //startService(new Intent(MainActivity.this, Servicio.class));
                     File file = Archivo.createFile("temp.amr");
                     if (file != null) {
                         Grabar(file);
@@ -219,6 +232,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
                     }
 
+
             }
         });
 
@@ -226,6 +240,7 @@ public class MainActivity extends AppCompatActivity
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //stopService(new Intent(MainActivity.this, Servicio.class));
                 miChart.setVisibility(View.INVISIBLE);
                 layout.setVisibility(View.INVISIBLE);
                 hilo=false;
@@ -297,12 +312,11 @@ public class MainActivity extends AppCompatActivity
                 AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("¿Que desea hacer?")
                                 .setTitle("Importante")
-                                .setIcon(android.R.drawable.ic_dialog_alert
-                                )
-                                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Guardar", new DialogInterface.OnClickListener(){
                                     @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        //numero_contador.setText("0");
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        /*//numero_contador.setText("0");
                                         String userE=numero_contador.getText().toString();
 
                                         //Recuperamos el usuario por el id que se genera de manera aleatoria
@@ -310,16 +324,72 @@ public class MainActivity extends AppCompatActivity
 
 
                                         BaseDatos user=new BaseDatos(userE);
-                                        databaseReference.child(id).child(userE).setValue(user);
+                                        databaseReference.child(id).child(userE).setValue(user);*/
+
                                     }
                                 })
                                 .setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        numero_contador.setText("0");
+                                    }
+                                });
+                        builder.show();
+
+
+                                       /* String uid=databaseReference.child("Usuarios de la APP").push().getKey();
+                                        Log.i("WII",uid);*/
+                                        /*//numero_contador.setText("0");
+                                        String userE=numero_contador.getText().toString();
+
+                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
+                                        String id=databaseReference.push().getKey();
+
+
+                                        BaseDatos user=new BaseDatos(userE);
+                                        databaseReference.child(id).child(userE).setValue(user);*/
+
+                                        //numero_contador.setText("0");
+                                        //String userE=numero_contador.getText().toString();
+
+                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
+                                       // String id=).getKey();
+                                        //database = pruebaRef.child(user.id).push();
+                                        /*newRef.setValue(person);
+                                        DatabaseReference userData = databaseReference.child("ag21tfg").child(user.id);
+
+                                        userData.addValuedatabaseReference.push(EventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                if (snapshot.getValue() != null) {
+                                                    //accedemos a contador de usuario user.id, valor que ha llegado por el Intent
+                                                    int cont = snapshot.getValue().contador;
+                                                    //Ponemos ese valor en el textview
+                                                    text.setTex(cont);
+                                                    //Toast.makeText(MainActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+                                                    //Log.e(getLocalClassName(), snapshot.getValue().toString());
+                                                } else {
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(FirebaseError error) {
+                                            }
+                                        });
+*/
+
+
+                                        /*BaseDatos user=new BaseDatos(userE);
+                                        databaseReference.child("meses").child(userE).setValue(user);*/
+
+                                /*.setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
 
                                     }
                                 });
-                        builder.show();
+                        builder.show();*/
             }
         });
 
@@ -332,6 +402,18 @@ public class MainActivity extends AppCompatActivity
         medioValor=(TextView)findViewById(R.id.mmval);
         maximoValor=(TextView)findViewById(R.id.maxval);
         curvaValor=(TextView)findViewById(R.id.curval);
+
+        //prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
+        salir=findViewById(R.id.btn_salir);
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent=new Intent(MainActivity.this,CrearUsuarios.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

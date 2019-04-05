@@ -2,6 +2,7 @@ package com.example.sandra.proyecto0509;
 
 import android.content.Intent;
 import android.media.Image;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.sandra.proyecto0509.Objetos.Usuario;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class PantallaSecundaria extends AppCompatActivity
 {
@@ -21,6 +29,8 @@ public class PantallaSecundaria extends AppCompatActivity
     public static final String user="names";
 
     DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +44,27 @@ public class PantallaSecundaria extends AppCompatActivity
 
         tv1=findViewById(R.id.tvnombre);
         tv2=findViewById(R.id.tvname);
-        String user = getIntent().getStringExtra("names");
-        tv1.setText(user);
+
+
+        /*FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getCurrentUser().getUid();
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Usuarios de la APP").child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario usu=dataSnapshot.getValue(Usuario.class);
+                //obtenermos los valores que queramos
+                String email=usu.getEmail();
+                int contador=usu.getContador();
+                contador= Integer.parseInt(numero_contador.getText().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
 
 
         empezar.setOnClickListener(new View.OnClickListener()
