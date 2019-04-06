@@ -44,6 +44,7 @@ import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -99,9 +100,12 @@ public class MainActivity extends AppCompatActivity
     Button salir;
     TextView numero_contador;
 
-    //private SharedPreferences prefs;
+
 
     DatabaseReference databaseReference;
+    FirebaseUser f;
+    FirebaseDatabase fb;
+    FirebaseAuth.AuthStateListener authStateListener;
 
 
     private boolean listening=true;
@@ -166,8 +170,8 @@ public class MainActivity extends AppCompatActivity
 
         /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
         final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        databaseReference=FirebaseDatabase.getInstance().getReference();
         //Leemos el fichero
        /* File file = new File("./fechas.txt");
         if(file.exists()){
@@ -228,6 +232,8 @@ public class MainActivity extends AppCompatActivity
                         //InicializamosGrafico();
                        // layout.setVisibility(View.VISIBLE);
                        // miChart.setVisibility(View.VISIBLE);
+
+
                     } else {
                         Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
                     }
@@ -325,6 +331,11 @@ public class MainActivity extends AppCompatActivity
 
                                         BaseDatos user=new BaseDatos(userE);
                                         databaseReference.child(id).child(userE).setValue(user);*/
+                                        
+                                        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                                        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
+                                        dbr.setValue(numero_contador.getText().toString());
+
 
                                     }
                                 })

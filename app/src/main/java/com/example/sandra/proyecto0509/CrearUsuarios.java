@@ -38,7 +38,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
     private ProgressDialog progressDialog;
     private Button btn_registrado;
 
-
+// y quiero acceder a esta variable desde
     //Declaramos un objeto firebaseAuth
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -200,7 +200,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
                         Toast.makeText(CrearUsuarios.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(CrearUsuarios.this,"No se pudo registrar el usuario ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearUsuarios.this,"No se pudo registrar el usuario la contraseña tiene que tener al menos 6 caracteres con algun numero ",Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
             }
