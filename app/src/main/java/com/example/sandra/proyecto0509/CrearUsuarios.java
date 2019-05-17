@@ -238,7 +238,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                 //Invocamos al método:
                 String emailInicio=TextEmail.getText().toString();
                 String passwordInicio=TextPassword.getText().toString();
-                validarPassword();
+                //validarPassword();
                 registrar(emailInicio,passwordInicio);
                // validarDatos();
 

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".RegistrarUsuarios"
             android:label="@string/title_activity_registrar_usuarios"
@@ -43,7 +44,7 @@
             android:label="@string/title_activity_informacion"
             android:theme="@style/AppTheme" />
 
-        <service android:name=".Servicio"/>
+        <service android:name=".Servicio" />
     </application>
 
 </manifest>

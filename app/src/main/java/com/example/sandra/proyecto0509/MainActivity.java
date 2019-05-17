@@ -1,39 +1,29 @@
 package com.example.sandra.proyecto0509;
 
 import android.Manifest;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sandra.proyecto0509.Objetos.FirebaseReferences;
-import com.example.sandra.proyecto0509.Objetos.Usuario;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -45,19 +35,11 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,8 +47,6 @@ import java.util.Date;
 
 import static com.example.sandra.proyecto0509.VariablesGlobales.contador;
 import static com.example.sandra.proyecto0509.VariablesGlobales.maximodb;
-import static com.example.sandra.proyecto0509.VariablesGlobales.minimodb;
-
 
 
 public class MainActivity extends AppCompatActivity
@@ -76,6 +56,7 @@ public class MainActivity extends AppCompatActivity
 
     Button start;
     Button stop;
+    Button pause;
 
     float umbral=-1;
     ConstraintLayout layout,constraint;
@@ -98,6 +79,7 @@ public class MainActivity extends AppCompatActivity
     ImageView menos;
     Button reiniciar;
     Button salir;
+    Button luz;
     TextView numero_contador;
 
 
@@ -115,6 +97,8 @@ public class MainActivity extends AppCompatActivity
     long tiempo=0;
     long tiempoconcurrente=0;
     ArrayList<Entry> yVals;
+
+    long tiempoenMS=0;
 
 
     private Grabadora migrabador;
@@ -134,31 +118,24 @@ public class MainActivity extends AppCompatActivity
                 maximoValor.setText(df1.format(maximodb));
                 curvaValor.setText(df1.format(contador));
                 ActualizarDatos(contador,0);
-                if(Calendar.getInstance().getTimeInMillis()-temporizador>3000) {
+                if(Calendar.getInstance().getTimeInMillis()-temporizador>4000) {
                     if (contador > umbral) {
                         //Toast.makeText(MainActivity.this, "nivel de ruido muy alto", Toast.LENGTH_SHORT).show();
                         mediaplayer.start();
                         constraint.setBackgroundColor(Color.RED);
                         numero_contador.setText(String.valueOf(Integer.parseInt(numero_contador.getText().toString())+1));
-
                     }
                     temporizador=Calendar.getInstance().getTimeInMillis();
                     if(contador<umbral){
                         constraint.setBackgroundColor(Color.WHITE);
                     }
+
                 }
             }
         }
     };
 
 
-
-    public void PararGrafico(){
-       // layout=findViewById(R.id.layout_DB);
-        layout.setVisibility(View.INVISIBLE);
-        miChart.setVisibility(View.INVISIBLE);
-
-    }
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -171,6 +148,7 @@ public class MainActivity extends AppCompatActivity
         /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
         final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         //Leemos el fichero
        /* File file = new File("./fechas.txt");
@@ -220,40 +198,79 @@ public class MainActivity extends AppCompatActivity
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //startService(new Intent(MainActivity.this, Servicio.class));
+               // start.setVisibility(View.INVISIBLE);
+                if(barra1.getProgress()==0){
+                    Toast.makeText(MainActivity.this, "Debes fijar un nivel de decibelios ", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //startService(new Intent(MainActivity.this, Servicio.class));
                     File file = Archivo.createFile("temp.amr");
                     if (file != null) {
                         Grabar(file);
                         listening = true;
-                        refresh=true;
-                        VariablesGlobales.minimodb=100;
-                        VariablesGlobales.ultimovalor=0;
-                        //InicializamosGrafico();
-                       // layout.setVisibility(View.VISIBLE);
-                       // miChart.setVisibility(View.VISIBLE);
-
-
+                        refresh = true;
+                        VariablesGlobales.minimodb = 100;
+                        VariablesGlobales.ultimovalor = 0;
                     } else {
                         Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
                     }
-
-
+                }
             }
         });
 
-        stop=(Button)findViewById(R.id.btn_stop);
+       // pause=findViewById(R.id.Pause);
+        //pause.setVisibility(View.INVISIBLE);
+        /*pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh=true;
+                VariablesGlobales.minimodb=100;
+                VariablesGlobales.contador=0;
+                VariablesGlobales.ultimovalor=0;
+                VariablesGlobales.maximodb=0;
+                InicializamosGrafico();
+            }
+        });*/
+
+        /*stop=(Button)findViewById(R.id.btn_stop);
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //stopService(new Intent(MainActivity.this, Servicio.class));
-                miChart.setVisibility(View.INVISIBLE);
+                *//*miChart.setVisibility(View.INVISIBLE);
                 layout.setVisibility(View.INVISIBLE);
                 hilo=false;
-                constraint.setBackgroundColor(Color.WHITE);
-               //migrabador.PararGrabacion();
+                constraint.setBackgroundColor(Color.WHITE);*//*
+                refresh=true;
+                VariablesGlobales.minimodb=100;
+                VariablesGlobales.contador=0;
+                VariablesGlobales.ultimovalor=0;
+                VariablesGlobales.maximodb=0;
+                InicializamosGrafico();
+
+            }
+        });*/
+
+        luz=findViewById(R.id.btn_brillo);
+        luz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subir_brillo();
             }
         });
+        luz.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(((Long) System.currentTimeMillis() - tiempoenMS) >= 2000){
+                    // Acción a realizar tras una pulsación de 5 segundos
+                    bajar_brillo();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         //Asignamos el seekbar al layout
         barra1=(SeekBar)findViewById(R.id.seekBar1);
@@ -331,7 +348,7 @@ public class MainActivity extends AppCompatActivity
 
                                         BaseDatos user=new BaseDatos(userE);
                                         databaseReference.child(id).child(userE).setValue(user);*/
-                                        
+
                                         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
                                         DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
                                         dbr.setValue(numero_contador.getText().toString());
@@ -427,7 +444,18 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    private void subir_brillo(){
+        //Codigo que baja totalmente el brillo de la pantalla
+        WindowManager.LayoutParams layout= getWindow().getAttributes();
+        layout.screenBrightness=0.0F;
+        getWindow().setAttributes(layout);
+    }
 
+    private void bajar_brillo(){
+        WindowManager.LayoutParams layout= getWindow().getAttributes();
+        layout.screenBrightness=1.0F;
+        getWindow().setAttributes(layout);
+    }
 
     private void ActualizarDatos(float val, long time) {
         if(miChart==null){
@@ -581,17 +609,17 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
-        /*File file = Archivo.createFile("temp.amr");
+        File file = Archivo.createFile("temp.amr");
         if (file != null) {
             Grabar(file);
         } else {
             Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
         }
-        listening = true;*/
-    }
+        listening = true;
+    }*/
 
     /**
      * Stop recording
