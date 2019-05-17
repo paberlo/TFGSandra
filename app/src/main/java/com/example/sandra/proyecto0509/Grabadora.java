@@ -73,6 +73,7 @@ public class Grabadora
         }catch (IllegalStateException e)
         {
             PararGrabacion();
+            e.printStackTrace();
             escucha=false;
         }
         return false;
@@ -83,16 +84,18 @@ public class Grabadora
     {
         if(grabacion!=null)
         {
-            while(escucha)
+            if(escucha)
             {
                 try
                 {
                     grabacion.stop();
-                    //grabacion.release();
-                }catch (Exception e){}
+                    grabacion.release();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
-       // grabacion=null;
+        grabacion=null;
         escucha=false;
     }
 
@@ -100,7 +103,7 @@ public class Grabadora
     public void BorrarAudio()
     {
         PararGrabacion();
-        while(archivo!=null)
+        if(archivo!=null)
         {
             archivo.delete();
             archivo=null;
