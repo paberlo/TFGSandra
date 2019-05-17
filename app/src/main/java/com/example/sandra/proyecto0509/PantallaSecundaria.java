@@ -22,11 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PantallaSecundaria extends AppCompatActivity
 {
-    ImageView informacion;
+    //ImageView informacion;
     Button empezar;
     Button resultados;
 
-    TextView tv1,tv2;
+    //TextView tv1,tv2;
     public static final String user="names";
 
     DatabaseReference databaseReference;
@@ -40,11 +40,11 @@ public class PantallaSecundaria extends AppCompatActivity
         setContentView(R.layout.activity_pantalla_secundaria);
 
         empezar=findViewById(R.id.btn_empezar);
-        informacion=findViewById(R.id.btn_informacion);
+        //informacion=findViewById(R.id.btn_informacion);
         resultados=findViewById(R.id.btn_resultados);
 
-        tv1=findViewById(R.id.tvnombre);
-        tv2=findViewById(R.id.tvname);
+        //tv1=findViewById(R.id.tvnombre);
+       // tv2=findViewById(R.id.tvname);
 
 
 
@@ -83,15 +83,15 @@ public class PantallaSecundaria extends AppCompatActivity
             }
         });
 
-        informacion.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent= new Intent(PantallaSecundaria.this, Informacion.class);
-                startActivity(intent);
-            }
-        });
+//        informacion.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                Intent intent= new Intent(PantallaSecundaria.this, Informacion.class);
+//                startActivity(intent);
+//            }
+//        });
 
         resultados.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,7 +21,8 @@
         <activity
             android:name=".CrearUsuarios"
             android:label="@string/title_activity_crear_usuarios"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Resultados"
             android:label="@string/title_activity_resultados"

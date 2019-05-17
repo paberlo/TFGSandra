@@ -59,6 +59,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_usuarios);
 
+
         //inicializamos el objeto firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
         /*databaseReference= FirebaseDatabase.getInstance().getReference();
@@ -195,7 +196,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(CrearUsuarios.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                   // Toast.makeText(CrearUsuarios.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                 }else{
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
                         Toast.makeText(CrearUsuarios.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
@@ -215,7 +216,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
 
-                    Toast.makeText(CrearUsuarios.this,"Ha iniciado sesion  el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(CrearUsuarios.this,"Ha iniciado sesion  el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                     Intent intencion = new Intent(getApplication(), CrearUsuarios.class);
                     startActivity(intencion);
                 }else{
