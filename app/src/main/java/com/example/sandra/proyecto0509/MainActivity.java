@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -37,8 +38,11 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.io.File;
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private Grabadora migrabador;
+    private FirebaseUser user;
 
     final Handler handler = new Handler(){
         @Override
@@ -126,12 +131,16 @@ public class MainActivity extends AppCompatActivity
                         mediaplayer.start();
                         constraint.setBackgroundColor(Color.RED);
                         numero_contador.setText(String.valueOf(Integer.parseInt(numero_contador.getText().toString())+1));
+
+
                     }
                     temporizador=Calendar.getInstance().getTimeInMillis();
                     if(contador<umbral){
                         constraint.setBackgroundColor(Color.WHITE);
                     }
-
+                    FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                    DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
+                    dbr.setValue(numero_contador.getText().toString());
                 }
             }
         }
@@ -151,7 +160,24 @@ public class MainActivity extends AppCompatActivity
 
         /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
         final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String contador=dataSnapshot.getValue().toString();
+                    numero_contador.setText(contador);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
         //Leemos el fichero
@@ -174,9 +200,9 @@ public class MainActivity extends AppCompatActivity
             if(ultimafecha.getDate()==Calendar.DAY_OF_MONTH && Calendar.MONTH==ultimafecha.getMonth() && Calendar.YEAR==ultimafecha.getYear()){
                 numero_contador.setText(Integer.parseInt(lastline.split(" ")[1]));
             }*/
-            //cuando el fichero no existe crearlo, y cuando existe y la ultima fecha no es la actual, crear otra linea
-            // y poner el contador a 0
-            //cuando se cierra la aplicacion se actualice el fichero
+        //cuando el fichero no existe crearlo, y cuando existe y la ultima fecha no es la actual, crear otra linea
+        // y poner el contador a 0
+        //cuando se cierra la aplicacion se actualice el fichero
 
 
         /*}else{
@@ -202,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // start.setVisibility(View.INVISIBLE);
+                // start.setVisibility(View.INVISIBLE);
                 if(barra1.getProgress()==0){
                     Toast.makeText(MainActivity.this, "Debes fijar un nivel de decibelios ", Toast.LENGTH_SHORT).show();
                 }
@@ -222,7 +248,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-       // pause=findViewById(R.id.Pause);
+        // pause=findViewById(R.id.Pause);
         //pause.setVisibility(View.INVISIBLE);
         /*pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,6 +285,8 @@ public class MainActivity extends AppCompatActivity
         luz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                luz.setText("Subir Brillo");
                 subir_brillo();
             }
         });
@@ -266,7 +294,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onLongClick(View v) {
                 if(((Long) System.currentTimeMillis() - tiempoenMS) >= 2000){
-                    // Acción a realizar tras una pulsación de 5 segundos
+                    luz.setText("Bajar Brillo");
                     bajar_brillo();
 
                     return true;
@@ -305,7 +333,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onStartTrackingTouch(SeekBar seekBar)
             {
-               // Toast.makeText(getApplicationContext(),"Arrastrar ", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(),"Arrastrar ", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -337,91 +365,25 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage("¿Que desea hacer?")
-                                .setTitle("Importante")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setPositiveButton("Guardar", new DialogInterface.OnClickListener(){
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        /*//numero_contador.setText("0");
-                                        String userE=numero_contador.getText().toString();
+                builder.setMessage("¿Que desea hacer?")
+                        .setTitle("Importante")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Reiniciar", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                numero_contador.setText("0");
+                                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                                DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
+                                dbr.setValue(numero_contador.getText().toString());
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
-                                        String id=databaseReference.push().getKey();
-
-
-                                        BaseDatos user=new BaseDatos(userE);
-                                        databaseReference.child(id).child(userE).setValue(user);*/
-
-                                        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-                                        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
-                                        dbr.setValue(numero_contador.getText().toString());
-
-
-                                    }
-                                })
-                                .setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        numero_contador.setText("0");
-                                    }
-                                });
-                        builder.show();
-
-
-                                       /* String uid=databaseReference.child("Usuarios de la APP").push().getKey();
-                                        Log.i("WII",uid);*/
-                                        /*//numero_contador.setText("0");
-                                        String userE=numero_contador.getText().toString();
-
-                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
-                                        String id=databaseReference.push().getKey();
-
-
-                                        BaseDatos user=new BaseDatos(userE);
-                                        databaseReference.child(id).child(userE).setValue(user);*/
-
-                                        //numero_contador.setText("0");
-                                        //String userE=numero_contador.getText().toString();
-
-                                        //Recuperamos el usuario por el id que se genera de manera aleatoria
-                                       // String id=).getKey();
-                                        //database = pruebaRef.child(user.id).push();
-                                        /*newRef.setValue(person);
-                                        DatabaseReference userData = databaseReference.child("ag21tfg").child(user.id);
-
-                                        userData.addValuedatabaseReference.push(EventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot snapshot) {
-                                                if (snapshot.getValue() != null) {
-                                                    //accedemos a contador de usuario user.id, valor que ha llegado por el Intent
-                                                    int cont = snapshot.getValue().contador;
-                                                    //Ponemos ese valor en el textview
-                                                    text.setTex(cont);
-                                                    //Toast.makeText(MainActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-                                                    //Log.e(getLocalClassName(), snapshot.getValue().toString());
-                                                } else {
-
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(FirebaseError error) {
-                                            }
-                                        });
-*/
-
-
-                                        /*BaseDatos user=new BaseDatos(userE);
-                                        databaseReference.child("meses").child(userE).setValue(user);*/
-
-                                /*.setNegativeButton("Reiniciar", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    }
-                                });
-                        builder.show();*/
+                            }
+                        });
+                builder.show();
             }
         });
 
