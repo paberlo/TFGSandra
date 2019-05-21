@@ -2,8 +2,10 @@
 package com.example.sandra.proyecto0509;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -42,12 +44,13 @@ public class Resultados extends AppCompatActivity {
     TableRow fila;
     HashMap<String, Integer> meses=new HashMap<String, Integer>();
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
 
-        Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
+         final Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
 
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
@@ -73,7 +76,32 @@ public class Resultados extends AppCompatActivity {
                     }
                 }
                 Log.d("I",meses.toString());
-            }
+                /*ArrayList<String> elementos=new ArrayList<String>();
+                elementos.add("Mayo 2019" );
+                elementos.add(meses.get("052019").toString());
+                tabla.agregarFilaTabla(elementos);*/
+                for (String key : meses.keySet()){
+                    ArrayList<String> elementos=new ArrayList<String>();
+                    Log.d("I","caca");
+                    Log.d("I",key);
+                    Log.d("I",key.substring(0,2));
+                    if(key.substring(0,2).equals("01")){
+                        elementos.add("Enero " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("05")) {
+                        elementos.add("Mayo " + key.substring(2, 6));
+                    }
+                    elementos.add(meses.get(key).toString());
+                    tabla.agregarFilaTabla(elementos);
+                        /*case "05":
+                            elementos.add("Mayo " + key.substring(2,6));
+                            break;
+                        default:
+                            elementos.add(meses.get(key).toString());
+                            tabla.agregarFilaTabla(elementos);*/
+                    }
+                }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -148,14 +176,15 @@ public class Resultados extends AppCompatActivity {
 
         /*Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);*/
-        String[]meses={"Septiembre","Octubre","Noviembre","Diciembre","Enero","Febrero","Marzo","Abril","Mayo","Junio"};
-        for(int i = 0; i < meses.length; i++)
+        /*String[]meses2={"Septiembre","Octubre","Noviembre","Diciembre","Enero","Febrero","Marzo","Abril","Mayo","Junio"};
+        for(int i = 0; i < meses2.length; i++)
         {
             ArrayList<String> elementos = new ArrayList<String>();
-            elementos.add(meses[i]);
+            elementos.add(meses2[i]);
             elementos.add("0");
             tabla.agregarFilaTabla(elementos);
-        }
+        }*/
+
 
     }
 }
