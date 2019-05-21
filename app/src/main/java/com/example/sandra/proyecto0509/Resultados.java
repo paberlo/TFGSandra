@@ -88,8 +88,38 @@ public class Resultados extends AppCompatActivity {
                     if(key.substring(0,2).equals("01")){
                         elementos.add("Enero " + key.substring(2,6));
                     }
+                    if(key.substring(0,2).equals("02")){
+                        elementos.add("Febrero " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("03")){
+                        elementos.add("Marzo " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("04")){
+                        elementos.add("Abril " + key.substring(2,6));
+                    }
                     if(key.substring(0,2).equals("05")) {
-                        elementos.add("Mayo " + key.substring(2, 6));
+                        elementos.add("Mayo " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("06")){
+                        elementos.add("Junio " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("07")){
+                        elementos.add("Julio " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("08")){
+                        elementos.add("Agosto " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("09")){
+                        elementos.add("Septiembre " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("10")){
+                        elementos.add("Octubre " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("11")){
+                        elementos.add("Noviembre " + key.substring(2,6));
+                    }
+                    if(key.substring(0,2).equals("12")){
+                        elementos.add("Diciembre " + key.substring(2,6));
                     }
                     elementos.add(meses.get(key).toString());
                     tabla.agregarFilaTabla(elementos);
