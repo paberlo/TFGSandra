@@ -204,6 +204,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(CrearUsuarios.this,"No se pudo registrar el usuario la contraseña tiene que tener al menos 6 caracteres con algun numero ",Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
+
             }
         });
     }
@@ -237,26 +238,37 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
             case R.id.btn_register:
                 //Invocamos al método:
+
                 String emailInicio=TextEmail.getText().toString();
                 String passwordInicio=TextPassword.getText().toString();
-                //validarPassword();
-                registrar(emailInicio,passwordInicio);
+                if(emailInicio.isEmpty() || passwordInicio.isEmpty()){
+                    Toast.makeText(CrearUsuarios.this,"Tienes que poner un email y contraseña y pulsa REGISTRAR ",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    registrar(emailInicio,passwordInicio);
+                }
+
                // validarDatos();
 
-                //validarEmail();
+
 
                 break;
             case R.id.btn_yaregistrado:
                 //loguearUsuario();
                 String emailSesion=TextEmail.getText().toString();
                 String passwordSesion=TextPassword.getText().toString();
-                iniciarsesion(emailSesion,passwordSesion);
+                if(emailSesion.isEmpty() || passwordSesion.isEmpty()){
+                    Toast.makeText(CrearUsuarios.this,"Introduce el email y contraseña y pulsa INICIAR SESION",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    iniciarsesion(emailSesion,passwordSesion);
+                }
                 break;
         }
     }
 
-    private boolean validarEmail(){
-        String emailInput=TextEmail.getEditableText().toString().trim();
+    private void validarEmail(){
+        /*String emailInput=TextEmail.getEditableText().toString().trim();
 
         if(emailInput.isEmpty()){
             TextEmail.setError("Email no puede estar vacio");
@@ -269,7 +281,8 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         else{
             TextEmail.setError(null);
             return true;
-        }
+        }*/
+
     }
 
     private boolean validarPassword(){
