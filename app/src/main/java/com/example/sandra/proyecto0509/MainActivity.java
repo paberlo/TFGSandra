@@ -47,9 +47,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.example.sandra.proyecto0509.VariablesGlobales.contador;
 import static com.example.sandra.proyecto0509.VariablesGlobales.maximodb;
@@ -110,6 +112,10 @@ public class MainActivity extends AppCompatActivity
     private Grabadora migrabador;
     private FirebaseUser user;
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MMyyyy", Locale.getDefault());
+    Date date = new Date();
+    String fecha = dateFormat.format(date);
+
     final Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg){
@@ -139,7 +145,7 @@ public class MainActivity extends AppCompatActivity
                         constraint.setBackgroundColor(Color.WHITE);
                     }
                     FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-                    DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
+                    DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child(fecha).child("contadores");
                     dbr.setValue(numero_contador.getText().toString());
                 }
             }
@@ -162,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
         user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores").addValueEventListener(new ValueEventListener() {
+        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -373,7 +379,7 @@ public class MainActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 numero_contador.setText("0");
                                 FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-                                DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child("contadores");
+                                DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child(fecha).child("contadores");
                                 dbr.setValue(numero_contador.getText().toString());
                             }
                         })

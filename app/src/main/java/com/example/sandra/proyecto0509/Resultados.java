@@ -3,11 +3,13 @@ package com.example.sandra.proyecto0509;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -20,7 +22,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Resultados extends AppCompatActivity {
@@ -30,6 +40,7 @@ public class Resultados extends AppCompatActivity {
     TableRow cabecera;
     TableRow separador_cabecera;
     TableRow fila;
+    HashMap<String, Integer> meses=new HashMap<String, Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,37 @@ public class Resultados extends AppCompatActivity {
 
         Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
+
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users");
+        dbr.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+                    //List <DataSnapshot> aux= (List<DataSnapshot>) datas.getChildren();
+                    //Log.d("I","aqui empiezan datos");
+                    //Log.d("I",datas.getValue().toString());
+
+                    for(DataSnapshot  children: datas.getChildren()){
+                        Log.d("I", children.child("contadores").getValue().toString());
+                        Log.d("I", children.getKey());
+                        if(meses.containsKey(children.getKey())){
+                            meses.put(children.getKey(), meses.get(children.getKey()) + Integer.parseInt(children.child("contadores").getValue().toString()));
+                        }
+                        else{
+                            //Log.d("I", children.getValue().toString());
+                            meses.put(children.getKey(), Integer.parseInt(children.child("contadores").getValue().toString()));
+                        }
+                    }
+                }
+                Log.d("I",meses.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
             /*ArrayList<String> elemento1 = new ArrayList<String>();
             elemento1.add("Septiembre");
