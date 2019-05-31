@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Resultados extends AppCompatActivity {
+public class Resultados2 extends AppCompatActivity {
 
 
     TableLayout tabla;
@@ -56,7 +56,7 @@ public class Resultados extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
 
-         final Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
+        final Tabla tabla = new Tabla(this, (TableLayout)findViewById(R.id.tabla));
         tabla.agregarCabecera(R.array.cabecera_tabla);
         /*jefe=findViewById(R.id.btn_jefe);
         jefe.setOnClickListener(new View.OnClickListener() {
@@ -68,29 +68,29 @@ public class Resultados extends AppCompatActivity {
             }
         });*/
 
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid());
+        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users");
         dbr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              // for(DataSnapshot datas: dataSnapshot.getChildren()){
-                    //List <DataSnapshot> aux= (List<DataSnapshot>) datas.getChildren();
-                    //Log.d("I","aqui empiezan datos");
-                    //Log.d("I",datas.getValue().toString());
-               // DataSnapshot children = null;
-                   for(DataSnapshot  children: dataSnapshot.getChildren()){
-                        Log.d("I", children.child("contadores").getValue().toString());
-                        Log.d("I", children.getKey());
-                        if(meses.containsKey(children.getKey())){
-                            meses.put(children.getKey(), meses.get(children.getKey()) + Integer.parseInt(children.child("contadores").getValue().toString()));
-                        }
-                        else{
-                            //Log.d("I", children.getValue().toString());
-                            meses.put(children.getKey(), Integer.parseInt(children.child("contadores").getValue().toString()));
-                        }
+                 for(DataSnapshot datas: dataSnapshot.getChildren()){
+                //List <DataSnapshot> aux= (List<DataSnapshot>) datas.getChildren();
+                //Log.d("I","aqui empiezan datos");
+                //Log.d("I",datas.getValue().toString());
+                // DataSnapshot children = null;
+                for(DataSnapshot  children: datas.getChildren()){
+                    Log.d("I", children.child("contadores").getValue().toString());
+                    Log.d("I", children.getKey());
+                    if(meses.containsKey(children.getKey())){
+                        meses.put(children.getKey(), meses.get(children.getKey()) + Integer.parseInt(children.child("contadores").getValue().toString()));
                     }
-            //   }
+                    else{
+                        //Log.d("I", children.getValue().toString());
+                        meses.put(children.getKey(), Integer.parseInt(children.child("contadores").getValue().toString()));
+                    }
+                }
+                 }
                 Log.d("I",meses.toString());
                 /*ArrayList<String> elementos=new ArrayList<String>();
                 elementos.add("Mayo 2019" );
@@ -145,8 +145,8 @@ public class Resultados extends AppCompatActivity {
                         default:
                             elementos.add(meses.get(key).toString());
                             tabla.agregarFilaTabla(elementos);*/
-                    }
                 }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.regex.Pattern;
 
 public class CrearUsuarios extends AppCompatActivity implements View.OnClickListener {
@@ -62,11 +64,6 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
         //inicializamos el objeto firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
-        /*databaseReference= FirebaseDatabase.getInstance().getReference();
-        String userID=firebaseAuth.getCurrentUser().getUid();
-        databaseReference.child("USUARIOS").child(userID).child("Contadores").setValue("3");*/
-        /*String uid=firebaseAuth.getUid();
-        Log.i("UID",uid);*/
 
         //Referenciamos los views
         TextEmail = (EditText) findViewById(R.id.ed_email);
@@ -87,6 +84,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
+
                 if(user!=null){
                     Toast.makeText(CrearUsuarios.this,"Sesion iniciada con email " +user.getEmail(),Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(CrearUsuarios.this,PantallaSecundaria.class);
@@ -100,94 +98,6 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         };
     }
 
-
-    /*private void registrarUsuario(){
-
-        //Obtenemos el email y la contraseña desde las cajas de texto
-        String email = TextEmail.getText().toString().trim();
-        String password  = TextPassword.getText().toString().trim();
-
-        //Verificamos que las cajas de texto no esten vacías
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Introduce el email",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Introduce la contraseña",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-
-        progressDialog.setMessage("Realizando registro...");
-        progressDialog.show();
-
-        //creating a new user
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if(task.isSuccessful()){
-
-                            Toast.makeText(CrearUsuarios.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
-                        }else{
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(CrearUsuarios.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(CrearUsuarios.this,"No se pudo registrar el usuario ",Toast.LENGTH_LONG).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
-    }*/
-    /*private void loguearUsuario() {
-        //Obtenemos el email y la contraseña desde las cajas de texto
-        final String email = TextEmail.getText().toString().trim();
-        String password = TextPassword.getText().toString().trim();
-
-        //Verificamos que las cajas de texto no esten vacías
-        if (TextUtils.isEmpty(email)) {//(precio.equals(""))
-            Toast.makeText(this, "Introduce el email", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Introduce la contraseña", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-
-        progressDialog.setMessage("Realizando consulta...");
-        progressDialog.show();
-
-        //loguear usuario
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if (task.isSuccessful()) {
-                            int pos = email.indexOf("@");
-                            String user = email.substring(0, pos);
-                            Toast.makeText(CrearUsuarios.this, "Bienvenido: " + TextEmail.getText(), Toast.LENGTH_LONG).show();
-                            Intent intencion = new Intent(getApplication(), PantallaSecundaria.class);
-                            intencion.putExtra(PantallaSecundaria.user, user);
-                            startActivity(intencion);
-
-
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                                Toast.makeText(CrearUsuarios.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(CrearUsuarios.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
-    }*/
-
     private void registrar(String email, String password){
 
         progressDialog.setMessage("Realizando registro...");
@@ -195,9 +105,11 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()){
                    // Toast.makeText(CrearUsuarios.this,"Se ha registrado el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
-                }else{
+                }
+                else{
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
                         Toast.makeText(CrearUsuarios.this, "Ese usuario ya existe ", Toast.LENGTH_SHORT).show();
                     }
@@ -233,32 +145,35 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        //Invocamos al método:
+
         switch (view.getId()) {
 
             case R.id.btn_register:
-                //Invocamos al método:
+
 
                 String emailInicio=TextEmail.getText().toString();
                 String passwordInicio=TextPassword.getText().toString();
                 if(emailInicio.isEmpty() || passwordInicio.isEmpty()){
-                    Toast.makeText(CrearUsuarios.this,"Tienes que poner un email y contraseña y pulsa REGISTRAR ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearUsuarios.this,"Introduce el email y contraseña y pulsa REGISTRAR ",Toast.LENGTH_SHORT).show();
+                }
+                else if(emailInicio.equals("jefeestudios33@hotmail.com")){
+                    Intent intencion = new Intent(getApplication(), Pantalla_Secundaria_Jefe.class);
+                    startActivity(intencion);
                 }
                 else {
                     registrar(emailInicio,passwordInicio);
                 }
-
-               // validarDatos();
-
-
-
                 break;
             case R.id.btn_yaregistrado:
-                //loguearUsuario();
+
                 String emailSesion=TextEmail.getText().toString();
                 String passwordSesion=TextPassword.getText().toString();
                 if(emailSesion.isEmpty() || passwordSesion.isEmpty()){
-                    Toast.makeText(CrearUsuarios.this,"Introduce el email y contraseña y pulsa INICIAR SESION",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CrearUsuarios.this,"Introduce el email y contraseña y pulsa INICIAR SESION",Toast.LENGTH_SHORT).show();
+                }
+               else  if(emailSesion.equals("jefeestudios33@hotmail.com")){
+                    Intent intencion = new Intent(getApplication(), Pantalla_Secundaria_Jefe.class);
+                    startActivity(intencion);
                 }
                 else {
                     iniciarsesion(emailSesion,passwordSesion);
@@ -266,57 +181,6 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
-    private void validarEmail(){
-        /*String emailInput=TextEmail.getEditableText().toString().trim();
-
-        if(emailInput.isEmpty()){
-            TextEmail.setError("Email no puede estar vacio");
-            return false;
-        }
-        else if(Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
-            TextEmail.setError("Introduce un email valido");
-            return false;
-        }
-        else{
-            TextEmail.setError(null);
-            return true;
-        }*/
-
-    }
-
-    private boolean validarPassword(){
-        String passInput=TextPassword.getEditableText().toString().trim();
-        if(passInput.isEmpty()){
-            TextPassword.setError("Contraseña no puede ser vacio");
-            return false;
-        }
-        else if(!PASSWORD_PATTERN.matcher(passInput).matches()){
-            TextPassword.setError("La contraseña debe ser al menos 6 caracteres y contener algun numero");
-            return false;
-        }
-        else{
-            TextPassword.setError(null);
-            return true;
-        }
-    }
-
-    /*private boolean comprobarpassword(String pass){
-        Pattern patron = Pattern.compile("^[a-zA-Z0-9 ]+$");
-        if (!patron.matcher(pass).matches() || pass.length() > 10) {
-            TextPassword.setError("La contraseña tiene que tener al menos 6 caracteres");
-            return false;
-        } else {
-            TextPassword.setError(null);
-        }
-
-        return true;
-    }
-
-    private void validarDatos(){
-        String pwd = TextPassword.getEditableText().toString();
-        boolean a=comprobarpassword(pwd);
-    }*/
 
     @Override
     protected void onStart() {

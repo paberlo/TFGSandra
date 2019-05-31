@@ -2,6 +2,7 @@ package com.example.sandra.proyecto0509;
 
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class PantallaSecundaria extends AppCompatActivity
     //ImageView informacion;
     Button empezar;
     Button resultados;
+    Button salir;
 
     //TextView tv1,tv2;
     public static final String user="names";
@@ -43,33 +45,18 @@ public class PantallaSecundaria extends AppCompatActivity
         //informacion=findViewById(R.id.btn_informacion);
         resultados=findViewById(R.id.btn_resultados);
 
-        //tv1=findViewById(R.id.tvnombre);
-       // tv2=findViewById(R.id.tvname);
 
 
-
-
-        /*FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        String uid = mAuth.getCurrentUser().getUid();
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Usuarios de la APP").child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
+        salir=findViewById(R.id.btn_salir);
+        salir.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Usuario usu=dataSnapshot.getValue(Usuario.class);
-                //obtenermos los valores que queramos
-                String email=usu.getEmail();
-                int contador=usu.getContador();
-                contador= Integer.parseInt(numero_contador.getText().toString());
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent=new Intent(PantallaSecundaria.this,CrearUsuarios.class);
+                startActivity(intent);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
-
+        });
         empezar.setOnClickListener(new View.OnClickListener()
         {
             @Override

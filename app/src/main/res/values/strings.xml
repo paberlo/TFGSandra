@@ -9,4 +9,6 @@
     <string name="enter_password">Introduce una contraseña</string>
     <string name="title_activity_registrar_usuarios">RegistrarUsuarios</string>
     <string name="nodo_discos">discos</string>
+    <string name="title_activity_resultados2">Resultados2</string>
+    <string name="title_activity_resultados3">Resultados3</string>
 </resources>

@@ -159,13 +159,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-
-        //Bases de Datos
-        // proviene del layout, son los campos de texto
-        //et1 = (EditText) findViewById(R.id.editText1_DNI); et2 = (EditText) findViewById(R.id.editText2_NOMBRE);
-
-        /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
-        final DatabaseReference pruebaRef=database.getReference(FirebaseReferences.BASE_REFERENCES);*/ //hacemos referencia al nombre de la base de datos
         user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
         DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
@@ -183,41 +176,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-
-
-        //Leemos el fichero
-       /* File file = new File("./fechas.txt");
-        if(file.exists()){
-            BufferedReader reader = null;
-            String line, lastline="";
-            try {
-                reader = new BufferedReader(new FileReader("./fechas.txt"));
-
-                while ((line = reader.readLine()) != null)
-                {
-                    lastline=line;
-                }
-                reader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Date ultimafecha=new Date(Long.parseLong(lastline.split(" ")[0]));
-            if(ultimafecha.getDate()==Calendar.DAY_OF_MONTH && Calendar.MONTH==ultimafecha.getMonth() && Calendar.YEAR==ultimafecha.getYear()){
-                numero_contador.setText(Integer.parseInt(lastline.split(" ")[1]));
-            }*/
-        //cuando el fichero no existe crearlo, y cuando existe y la ultima fecha no es la actual, crear otra linea
-        // y poner el contador a 0
-        //cuando se cierra la aplicacion se actualice el fichero
-
-
-        /*}else{
-
-        }*/
-        /*String cwd = new File("").getAbsolutePath();
-        //System.out.println();
-        System.out.println("CWD"+cwd);*/
-        //File dir = context.getDir(userfavorites, Context.MODE_PRIVATE);
 
         //temporizador
         temporizador=Calendar.getInstance().getTimeInMillis();
@@ -371,7 +329,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("¿Que desea hacer?")
+                builder.setMessage("¿Esta seguro que desea reiniciar?")
                         .setTitle("Importante")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton("Reiniciar", new DialogInterface.OnClickListener(){
@@ -404,7 +362,7 @@ public class MainActivity extends AppCompatActivity
         curvaValor=(TextView)findViewById(R.id.curval);
 
         //prefs=getSharedPreferences("Preferences",MODE_PRIVATE);
-        salir=findViewById(R.id.btn_salir);
+        /*salir=findViewById(R.id.btn_salir);
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -413,7 +371,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent=new Intent(MainActivity.this,CrearUsuarios.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void subir_brillo(){
