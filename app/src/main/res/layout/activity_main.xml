@@ -180,8 +180,8 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="REAL"
-            android:textColor="@color/rosa"
-            android:textColorLink="@color/rosa"
+            android:textColor="@color/verde"
+            android:textColorLink="@color/morado"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -264,41 +264,43 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
             app:layout_constraintVertical_bias="0.0" />-->
 
-        <ImageButton
+        <Button
             android:id="@+id/btn_mas"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="77dp"
+            android:layout_height="68dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:text="+"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/botonmas" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <Button
             android:id="@+id/btn_menos"
-            android:layout_width="54dp"
-            android:layout_height="49dp"
+            android:layout_width="69dp"
+            android:layout_height="72dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:text="-"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.305"
+            app:layout_constraintHorizontal_bias="0.432"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/botonmenos" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btn_reiniciar"
             android:layout_width="104dp"
             android:layout_height="44dp"
@@ -314,12 +316,12 @@
             app:layout_constraintHorizontal_bias="0.778"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.885" />
+            app:layout_constraintVertical_bias="0.885" />-->
 
         <TextView
             android:id="@+id/text_view_contador"
-            android:layout_width="49dp"
-            android:layout_height="44dp"
+            android:layout_width="56dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -332,10 +334,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.153"
+            app:layout_constraintHorizontal_bias="0.231"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.468" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

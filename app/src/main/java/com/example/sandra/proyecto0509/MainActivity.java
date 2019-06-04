@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity
 
     MediaPlayer mediaplayer;
 
-    ImageView mas;
-    ImageView menos;
+    Button mas;
+    Button menos;
     Button reiniciar;
     Button salir;
     Button luz;
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity
 
         mas=findViewById(R.id.btn_mas);
         menos=findViewById(R.id.btn_menos);
-        reiniciar=findViewById(R.id.btn_reiniciar);
+       // reiniciar=findViewById(R.id.btn_reiniciar);
         numero_contador=findViewById(R.id.text_view_contador);
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        reiniciar.setOnClickListener(new View.OnClickListener() {
+        /*reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity
                         });
                 builder.show();
             }
-        });
+        });*/
 
         //Declaramos la grabadora
         migrabador= new Grabadora();
