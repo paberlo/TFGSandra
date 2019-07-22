@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
                     }
                 }
+                start.setEnabled(false);
             }
         });
 
