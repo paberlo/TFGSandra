@@ -1,27 +1,12 @@
-idioma : android
-jdk : oraclejdk9
-sudo : falso
+language: java
+jdk:
+- oraclejdk7
 
-Android :
-  componentes :
-  - plataforma-herramientas
-  - herramientas
-  - Herramientas de construcción-24.0.2
-  - android-22
-  - android-24
-  - sys-img-armeabi-v7a-android-22
-  - extra-android-m2repository
-
-antes_script :
-# Crear e iniciar emulador
-- eco no | android crear avd --force -n test -t android-22 --abi armeabi-v7a
-- emulador -avd prueba -no-skin -no-audio -no-ventana &
-- android-wait-for-emulator
-- entrada de teclado adb keyevent 82 &
+sudo: required
 
 before_install:
 - chmod +x gradlew
 
-
-script : ./gradlew connectedAndroidTest
+script:
+- ./gradlew clean build -i --continue
 
