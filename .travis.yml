@@ -19,5 +19,9 @@ antes_script :
 - android-wait-for-emulator
 - entrada de teclado adb keyevent 82 &
 
+before_install:
+- chmod +x gradlew
+
+
 script : ./gradlew connectedAndroidTest
 
