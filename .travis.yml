@@ -15,7 +15,7 @@ Android :
 antes_script :
 # Crear e iniciar emulador
 - eco no | android crear avd --force -n test -t android-22 --abi armeabi-v7a
-- emulador -avd prueba -no-skin -no-audio -no-ventana &
+- emulador -avd prueba -no-skin -no-audio -no-ventana & -gpu off &
 - android-wait-for-emulator
 - entrada de teclado adb keyevent 82 &
 
