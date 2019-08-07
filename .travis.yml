@@ -1,5 +1,5 @@
 idioma : android
-jdk : oraclejdk9
+jdk : oraclejdk8
 sudo : falso
 
 Android :
