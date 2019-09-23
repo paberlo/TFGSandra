@@ -20,6 +20,7 @@ antes_script :
 - entrada de teclado adb keyevent 82 &
 
 before_install:
+- gem --version
 - chmod +x gradlew
 - gem install rake
 
