@@ -22,6 +22,7 @@ public class CrearUsuariosTest {
     @Rule
     public ActivityTestRule<CrearUsuarios> activityRule = new ActivityTestRule<>(CrearUsuarios.class);
 
+    /*Test que comprueba que los usuarios inician sesion y estan registrados*/
     @Test
     public void clickLoginButton_opensLoginUi() throws Exception{
         //comprobar que el boton btn_yaregistrado es visible al usuario

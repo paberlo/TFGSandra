@@ -25,7 +25,7 @@ public class PantallaSecundariaTest {
 
     /*Este test comprueba que los botones de la pantalla secundaria
     * (empezar, estadisticas y cerrar sesion)
-    * son visibles y al hacer click abren la correspondiente activity*/
+    * son visible en su correspondiente activity*/
     @Test
     public void mostrarBotones(){
         onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
@@ -33,16 +33,22 @@ public class PantallaSecundariaTest {
         onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
     }
 
+    /*Test que comprueba que el boton empezar es clicable y abre
+    * su activity correspondiente*/
     @Test
     public void clickBotonEmpezar(){
         onView(withId(R.id.btn_empezar)).perform(click());
     }
 
+    /*Test que comprueba que el boton resultados es clicable y abre
+     * su activity correspondiente*/
     @Test
     public void clickBotonResultados(){
         onView(withId(R.id.btn_resultados)).perform(click());
     }
 
+    /*Test que comprueba que el boton salir es clicable y abre
+     * su activity correspondiente*/
     @Test
     public void clickBotonSalir(){
         onView(withId(R.id.btn_salir)).perform(click());
