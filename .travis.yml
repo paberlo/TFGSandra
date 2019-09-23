@@ -21,5 +21,6 @@ antes_script :
 
 before_install:
 - chmod +x gradlew
+- gem install rake
 
 
