@@ -1,6 +1,7 @@
 package com.example.sandra.proyecto0509;
 
 
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -15,6 +16,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
+
+    @Rule
+    public ActivityTestRule<MainActivity>activityActivityTestRule= new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
     public void clickLoginButton_opensLoginUi() throws Exception{
