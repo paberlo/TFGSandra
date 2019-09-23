@@ -18,7 +18,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity>activityActivityTestRule= new ActivityTestRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity>activityActivityTestRule= new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void clickLoginButton_opensLoginUi() throws Exception{
