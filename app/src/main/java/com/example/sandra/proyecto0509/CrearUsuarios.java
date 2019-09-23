@@ -101,6 +101,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
     private void registrar(String email, String password){
 
         progressDialog.setMessage("Realizando registro...");
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -123,6 +124,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
     private void iniciarsesion(String email, String password){
         progressDialog.setMessage("Realizando consulta...");
+        progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
