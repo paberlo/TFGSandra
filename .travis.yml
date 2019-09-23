@@ -1,27 +1,24 @@
-idioma : android
+language : android
 jdk : oraclejdk9
 sudo : falso
 
-Android :
-  componentes :
-  - plataforma-herramientas
-  - herramientas
-  - Herramientas de construcción-24.0.2
+android :
+  components :
+  - platform-tools
+  - tools
+  - build-tools-24.0.2
   - android-22
   - android-24
   - sys-img-armeabi-v7a-android-22
   - extra-android-m2repository
 
-antes_script :
-# Crear e iniciar emulador
-- eco no | android crear avd --force -n test -t android-22 --abi armeabi-v7a
-- emulador -avd prueba -no-skin -no-audio -no-ventana & -gpu off &
+before_script:
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a -c 100M
+- emulator -avd test -no-audio -no-window &
 - android-wait-for-emulator
-- entrada de teclado adb keyevent 82 &
+- adb shell input keyevent 82 &
 
 before_install:
-- gem --version
 - chmod +x gradlew
-- gem install rake
 
 
