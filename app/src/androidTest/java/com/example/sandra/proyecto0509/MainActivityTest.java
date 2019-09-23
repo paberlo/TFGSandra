@@ -9,6 +9,7 @@ import android.support.test.espresso.action.Tap;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import org.junit.Rule;
@@ -89,6 +90,7 @@ public class MainActivityTest {
                 },
                 Press.FINGER);
     }
+
 
 
 
