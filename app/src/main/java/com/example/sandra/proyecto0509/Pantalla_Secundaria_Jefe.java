@@ -2,10 +2,12 @@ package com.example.sandra.proyecto0509;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Pantalla_Secundaria_Jefe extends AppCompatActivity {
 
@@ -16,7 +18,7 @@ public class Pantalla_Secundaria_Jefe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla__secundaria__jefe);
 
-        estadisticas_jefe=findViewById(R.id.btn_estadisticas_jefe);
+        estadisticas_jefe= (Button) findViewById(R.id.btn_estadisticas_jefe);
         estadisticas_jefe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,7 +27,7 @@ public class Pantalla_Secundaria_Jefe extends AppCompatActivity {
             }
         });
 
-        web_base_datos=findViewById(R.id.btn_basedatos_jefe);
+        web_base_datos= (Button) findViewById(R.id.btn_basedatos_jefe);
         web_base_datos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

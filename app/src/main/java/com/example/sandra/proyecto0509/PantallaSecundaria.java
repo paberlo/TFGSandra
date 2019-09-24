@@ -3,8 +3,6 @@ package com.example.sandra.proyecto0509;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class PantallaSecundaria extends AppCompatActivity
@@ -41,13 +41,13 @@ public class PantallaSecundaria extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_secundaria);
 
-        empezar=findViewById(R.id.btn_empezar);
+        empezar= (Button) findViewById(R.id.btn_empezar);
         //informacion=findViewById(R.id.btn_informacion);
-        resultados=findViewById(R.id.btn_resultados);
+        resultados= (Button) findViewById(R.id.btn_resultados);
 
 
 
-        salir=findViewById(R.id.btn_salir);
+        salir= (Button) findViewById(R.id.btn_salir);
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

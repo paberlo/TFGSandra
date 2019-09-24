@@ -9,12 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,6 +47,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import static com.example.sandra.proyecto0509.VariablesGlobales.contador;
 import static com.example.sandra.proyecto0509.VariablesGlobales.maximodb;
@@ -183,8 +184,8 @@ public class MainActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
-        layout=findViewById(R.id.layout_DB);
-        constraint=findViewById(R.id.constraint);
+        layout= (ConstraintLayout) findViewById(R.id.layout_DB);
+        constraint= (ConstraintLayout) findViewById(R.id.constraint);
 
         mediaplayer = MediaPlayer.create(this, R.raw.music);
 
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity
             }
         });*/
 
-        luz=findViewById(R.id.btn_brillo);
+        luz= (Button) findViewById(R.id.btn_brillo);
         luz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,10 +309,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mas=findViewById(R.id.btn_mas);
-        menos=findViewById(R.id.btn_menos);
+        mas= (Button) findViewById(R.id.btn_mas);
+        menos= (Button) findViewById(R.id.btn_menos);
        // reiniciar=findViewById(R.id.btn_reiniciar);
-        numero_contador=findViewById(R.id.text_view_contador);
+        numero_contador= (TextView) findViewById(R.id.text_view_contador);
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

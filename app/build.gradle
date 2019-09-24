@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.sandra.proyecto0509"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 9
         versionName "1.0"
@@ -22,26 +22,23 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:design:28.0.0-rc02'
-    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
-    implementation 'com.android.support:design:28.0.0-alpha3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.2.0'
     implementation 'com.github.bmarrdev:android-DecoView-charting:v1.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.anastr:speedviewlib:1.2.0'
     implementation 'in.unicodelabs.sorbh:kdgaugeview:1.0.0'
     implementation 'com.github.neopixl:PixlUI:v1.1.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
+
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'com.android.volley:volley:1.1.0'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.firebase:firebase-database:16.1.0'
-    implementation 'com.google.firebase:firebase-auth:16.2.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    implementation 'com.google.firebase:firebase-core:17.2.0'
+    implementation 'com.google.firebase:firebase-database:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.0.0'
+    androidTestImplementation 'androidx.test:rules:1.0.2'
     androidTestImplementation 'com.android.support:support-annotations:24.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
 
