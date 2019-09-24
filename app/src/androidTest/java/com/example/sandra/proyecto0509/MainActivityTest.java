@@ -1,15 +1,6 @@
 package com.example.sandra.proyecto0509;
 
-
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.CoordinatesProvider;
-import android.support.test.espresso.action.GeneralClickAction;
-import android.support.test.espresso.action.Press;
-import android.support.test.espresso.action.Tap;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SeekBar;
 
 import org.junit.Rule;
@@ -18,18 +9,26 @@ import org.junit.runner.RunWith;
 
 import java.util.Random;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.action.CoordinatesProvider;
+import androidx.test.espresso.action.GeneralClickAction;
+import androidx.test.espresso.action.Press;
+import androidx.test.espresso.action.Tap;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity>activityActivityTestRule= new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityActivityTestRule= new ActivityTestRule<>(MainActivity.class);
 
     /*Test que comprueba que el boton star y brillo son visibles
     * y al hacer click realizan su funcion correspondiente*/
