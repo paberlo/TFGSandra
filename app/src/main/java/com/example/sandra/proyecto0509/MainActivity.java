@@ -159,10 +159,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr= (DatabaseReference) fbd.getReference("users").child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
+        DatabaseReference dbr = fbd.getReference("users");
+        dbr.child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
