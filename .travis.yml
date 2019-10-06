@@ -2,14 +2,6 @@ language : android
 jdk : oraclejdk9
 sudo : falso
 
-before_cache:
-  -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-  -$HOME/.gradle/caches/
-  -$HOME/.gradle/wrapper/
-
 android :
   components :
     - platform-tools
@@ -23,5 +15,4 @@ android :
 before_install:
   - chmod +x gradlew
 
-script:
-  - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+script: ./gradlew connectedAndroidTest
