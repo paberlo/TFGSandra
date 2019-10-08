@@ -6,9 +6,9 @@ android :
   components :
     - platform-tools
     - tools
-    - build-tools-24.0.2
+    - build-tools-26.0.2
     - android-22
-    - android-24
+    - android-26
     - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
 
@@ -16,4 +16,3 @@ before_install:
   - chmod +x gradlew
 
 script: ./gradlew connectedAndroidTest
-./gradlew build connectedCheck
