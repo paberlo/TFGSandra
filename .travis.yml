@@ -2,6 +2,8 @@ language : android
 jdk : oraclejdk8
 sudo : falso
 
+
+script: ./gradlew connectedAndroidTest
 android :
   components :
     - platform-tools
@@ -17,4 +19,3 @@ before_install:
   - chmod +x gradlew
   - yes | sdkmanager "platforms;android-28"
 
-script: ./gradlew connectedAndroidTest
