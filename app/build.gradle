@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion 28
@@ -47,9 +47,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.ext:truth:1.2.0'
     androidTestImplementation 'com.google.truth:truth:1.0'
-
-
-
-
-
 }
+
+apply plugin: 'com.google.gms.google-services'
