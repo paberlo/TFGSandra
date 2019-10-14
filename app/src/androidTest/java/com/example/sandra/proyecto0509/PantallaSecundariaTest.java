@@ -48,12 +48,6 @@ public class PantallaSecundariaTest {
         onView(withId(R.id.btn_resultados)).perform(click());
     }
 
-    /*Test que comprueba que el boton salir es clicable y abre
-     * su activity correspondiente
     
-    @Test
-    public void clickBotonSalir(){
-        onView(withId(R.id.btn_salir));
-    }*/
 
 }
