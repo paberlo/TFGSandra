@@ -49,9 +49,9 @@ public class PantallaSecundariaTest {
     }
 
     /*Test que comprueba que el boton salir es clicable y abre
-     * su activity correspondiente*/
+     * su activity correspondiente
     
-    /*@Test
+    @Test
     public void clickBotonSalir(){
         onView(withId(R.id.btn_salir));
     }*/
