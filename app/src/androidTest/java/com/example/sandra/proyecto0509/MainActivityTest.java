@@ -51,7 +51,7 @@ public class MainActivityTest {
     }*/
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
-    @Test
+   /* @Test
     public void moverSeekbar(){
         onView(withId(R.id.seekBar1)).perform(clickSeekBar(51));
         onView(withId(R.id.seekBar1)).perform(clickSeekBar(200));
@@ -88,7 +88,7 @@ public class MainActivityTest {
                     }
                 },
                 Press.FINGER);
-    }
+    }*/
 
 
 
