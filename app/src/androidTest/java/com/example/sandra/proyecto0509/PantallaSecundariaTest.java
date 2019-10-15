@@ -48,6 +48,6 @@ public class PantallaSecundariaTest {
         onView(withId(R.id.btn_resultados)).perform(click());
     }
 
-    
+
 
 }
