@@ -44,11 +44,11 @@ public class MainActivityTest {
 
     /*Test que comprueba la visilibilidad de los botones mas y menos
     * y su funcionalidad al hacer click*/
-    @Test
+   /* @Test
     public void btn_masymenos(){
         onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
-    }
+    }*/
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
     @Test
