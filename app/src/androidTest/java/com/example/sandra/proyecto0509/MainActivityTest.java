@@ -24,11 +24,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
+/*
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> activityActivityTestRule= new ActivityTestRule<>(MainActivity.class);
+*/
 
     /*Test que comprueba que el boton star y brillo son visibles
     * y al hacer click realizan su funcion correspondiente*/
@@ -93,4 +95,3 @@ public class MainActivityTest {
 
 
 
-}
