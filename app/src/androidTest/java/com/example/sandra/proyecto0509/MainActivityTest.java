@@ -32,7 +32,7 @@ public class MainActivityTest {
 
     /*Test que comprueba que el boton star y brillo son visibles
     * y al hacer click realizan su funcion correspondiente*/
-    @Test
+    /*@Test
     public void mostrar_clickBotones() throws Exception{
         onView(withId(R.id.btn_start))
                 .perform(click())
@@ -40,7 +40,7 @@ public class MainActivityTest {
         onView(withId(R.id.btn_brillo))
                 .perform(click())
                 .check(matches(isDisplayed()));
-    }
+    }*/
 
     /*Test que comprueba la visilibilidad de los botones mas y menos
     * y su funcionalidad al hacer click*/
