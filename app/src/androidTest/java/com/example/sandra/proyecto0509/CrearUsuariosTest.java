@@ -1,15 +1,19 @@
 package com.example.sandra.proyecto0509;
 
 
+import android.content.Intent;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -21,6 +25,7 @@ public class CrearUsuariosTest {
 
     @Rule
     public ActivityTestRule<CrearUsuarios> activityRule = new ActivityTestRule<>(CrearUsuarios.class);
+
 
     /*Test que comprueba que los usuarios inician sesion y estan registrados*/
     @Test

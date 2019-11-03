@@ -17,37 +17,34 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
-/*@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class PantallaSecundariaTest {
 
     @Rule
-    public ActivityTestRule<PantallaSecundaria> activityTestRule= new ActivityTestRule<PantallaSecundaria>(PantallaSecundaria.class);*/
+    public ActivityTestRule<PantallaSecundaria> activityTestRule= new ActivityTestRule<PantallaSecundaria>(PantallaSecundaria.class);
 
 
-    /*Este test comprueba que los botones de la pantalla secundaria
+   /* Este test comprueba que los botones de la pantalla secundaria
     * (empezar, estadisticas y cerrar sesion)
     * son visible en su correspondiente activity*/
-  /*  @Test
+    @Test
     public void mostrarBotones(){
         onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
-    }*/
+    }
 
     /*Test que comprueba que el boton empezar es clicable y abre
     * su activity correspondiente*/
-  /*  @Test
+    @Test
     public void clickBotonEmpezar(){
         onView(withId(R.id.btn_empezar)).perform(click());
     }
 
-    *//*Test que comprueba que el boton resultados es clicable y abre
-     * su activity correspondiente*//*
+    /*Test que comprueba que el boton resultados es clicable y abre
+     * su activity correspondiente*/
     @Test
     public void clickBotonResultados(){
         onView(withId(R.id.btn_resultados)).perform(click());
-    }*/
-
-
-
-//}
+    }
+}
