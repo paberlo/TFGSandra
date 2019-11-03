@@ -2,13 +2,16 @@ package com.example.sandra.proyecto0509;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Intent;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -16,6 +19,7 @@ import androidx.test.rule.ActivityTestRule;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.Intents.times;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -38,7 +42,10 @@ public class LoginUsuarioTest {
     public void clickLoginButton(){
         onView(withId(R.id.ed_email)).perform(ViewActions.typeText(username), closeSoftKeyboard());
         onView(withId(R.id.et_password)).perform(ViewActions.typeText(password), closeSoftKeyboard());
-        onView(withId(R.id.btn_yaregistrado)).perform(click());
-        intended(hasComponent(PantallaSecundaria.class.getName()), times(2));
+        onView(withId(R.id.btn_yaregistrado)).perform(ViewActions.click());
+        intended(hasComponent(PantallaSecundaria.class.getName()),times(0));
+
     }
+
+
 }
