@@ -27,7 +27,6 @@
         <activity
             android:name=".CrearUsuarios"
             android:label="@string/title_activity_crear_usuarios"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Resultados"
@@ -41,15 +40,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:name=".MainActivity"/>
         <activity
-            android:name=".PantallaSecundaria"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Informacion"
-            android:label="@string/title_activity_informacion"
-            android:theme="@style/AppTheme" />
+            android:name=".PantallaSecundaria"/>
 
         <service android:name=".Servicio" />
     </application>

@@ -101,9 +101,9 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
     private void registrar(String email, String password){
 
-        progressDialog.setMessage("Realizando registro...");
+        /*progressDialog.setMessage("Realizando registro...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        progressDialog.show();*/
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,16 +117,16 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                     }
                     Toast.makeText(CrearUsuarios.this,"No se pudo registrar el usuario la contraseña tiene que tener al menos 6 caracteres con algun numero ",Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
 
             }
         });
     }
 
     private void iniciarsesion(String email, String password){
-        progressDialog.setMessage("Realizando consulta...");
+        /*progressDialog.setMessage("Realizando consulta...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        progressDialog.show();*/
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -141,9 +141,10 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
                     }
                     Toast.makeText(CrearUsuarios.this,"No se pudo iniciar sesion ",Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
+
             }
         });
+        //progressDialog.dismiss();
     }
 
     @Override

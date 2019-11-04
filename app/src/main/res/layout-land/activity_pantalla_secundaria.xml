@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PantallaSecundaria">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@color/amarillo"
+        android:scrollbarTrackVertical="@color/amarillo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_empezar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/granate"
+                android:text="Iniciar"
+                android:textColor="@color/label_text_light"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_resultados"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/morado"
+                android:text="Estadisticas"
+                android:textColor="@color/label_text_light"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btn_salir"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="5dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarSize="10dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbarThumbVertical="@color/amarillo"
+                android:scrollbarTrackVertical="@color/amarillo"
+                android:text="Cerrar Sesion" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@color/amarillo"
+        android:scrollbarTrackVertical="@color/amarillo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <Button
+                    android:id="@+id/btn_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="180dp"
+                    android:layout_marginRight="50dp"
+                    android:text="Start" />
+
+                <Button
+                    android:id="@+id/btn_brillo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:text="Bajar Brillo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtview_progreso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:hint="Decibelios"
+                    android:textSize="18sp" />
+
+                <SeekBar
+                    android:id="@+id/seekBar1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:max="300"
+                    android:progressDrawable="@drawable/custom_progress"
+                    android:thumb="@drawable/thumb" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/grafico"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/minlabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="MINIMO"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textColorLink="@color/azul_clarito"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/maxlabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="MAXIMO"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textColorLink="@color/moradito"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/curlabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="REAL"
+                    android:textColor="@color/verde"
+                    android:textColorLink="@color/morado"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/avglabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:text="MEDIA"
+                    android:textColor="@color/morado"
+                    android:textColorLink="@android:color/holo_orange_dark"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_DB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+
+                <TextView
+                    android:id="@+id/minval"
+                    android:layout_width="166dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="DB"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/maxval"
+                    android:layout_width="172dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="DB"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/curval"
+                    android:layout_width="142dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="DB"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/mmval"
+                    android:layout_width="156dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="DB"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <!--<Button
+                android:id="@+id/btn_salir"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Salir"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.782"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintVertical_bias="0.0" />-->
+
+                <Button
+                    android:id="@+id/btn_mas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="+"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/text_view_contador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_menos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="-"
+                    android:textSize="30sp" />
+
+                <!--<Button
+                android:id="@+id/btn_reiniciar"
+                android:layout_width="104dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Reiniciar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.778"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.885" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+    <!--<Button
+    android:id="@+id/btn_stop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="4dp"
+    android:layout_marginRight="4dp"
+    android:text="Stop"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />-->
+
+
+</LinearLayout>

@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="150dp"
             android:text="Registrarse"
             android:textSize="18sp" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:text="Iniciar Sesion"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="100dp"
             android:textSize="18sp" />
     </LinearLayout>
 

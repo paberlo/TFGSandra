@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity
     Button pause;
 
     float umbral=-1;
-    ConstraintLayout layout,constraint;
+    LinearLayout layout,constraint;
     LineChart miChart;
     TextView minimoValor;
     TextView maximoValor;
@@ -193,8 +194,8 @@ public class MainActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
         }
-        layout= (ConstraintLayout) findViewById(R.id.layout_DB);
-        constraint= (ConstraintLayout) findViewById(R.id.constraint);
+        layout= (LinearLayout) findViewById(R.id.layout_DB);
+        constraint= (LinearLayout) findViewById(R.id.constraint);
 
         mediaplayer = MediaPlayer.create(this, R.raw.music);
 
