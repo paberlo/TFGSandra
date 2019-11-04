@@ -57,6 +57,8 @@
                     android:layout_marginRight="20dp"
                     android:gravity="center"
                     android:hint="Decibelios"
+                    android:textColor="#00897B"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
 
                 <SeekBar
