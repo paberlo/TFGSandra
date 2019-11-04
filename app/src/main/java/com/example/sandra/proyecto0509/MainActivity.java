@@ -51,6 +51,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -205,7 +206,18 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 // start.setVisibility(View.INVISIBLE);
                 if(barra1.getProgress()==0){
-                    Toast.makeText(MainActivity.this, "Debes fijar un nivel de decibelios ", Toast.LENGTH_SHORT).show();
+                    start.setEnabled(true);
+                    //Toast.makeText(MainActivity.this, "Debes fijar un nivel de decibelios ", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder seleccionDB= new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert);
+                    seleccionDB.setMessage("Debe seleccionar el nivel de decibelios que desea, para ello mueva la barrita");
+                    seleccionDB.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog noDB=seleccionDB.create();
+                    noDB.show();
                 }
                 else {
                     //startService(new Intent(MainActivity.this, Servicio.class));
@@ -217,10 +229,11 @@ public class MainActivity extends AppCompatActivity
                         VariablesGlobales.minimodb = 100;
                         VariablesGlobales.ultimovalor = 0;
                     } else {
-                        Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "error error error", Toast.LENGTH_SHORT).show();
                     }
+                    start.setEnabled(false);
                 }
-                start.setEnabled(false);
+
             }
         });
 
@@ -290,7 +303,7 @@ public class MainActivity extends AppCompatActivity
         barra1.setProgress(0);
 
 
-        mostrarPorcentaje.setText(barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
+        mostrarPorcentaje.setText("Medidor de Decibelios " + barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
         barra1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
 
