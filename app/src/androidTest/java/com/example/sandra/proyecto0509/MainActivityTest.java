@@ -1,3 +1,4 @@
+/*
 package com.example.sandra.proyecto0509;
 
 import android.view.View;
@@ -32,8 +33,10 @@ public class MainActivityTest{
     @Rule
     public ActivityTestRule<MainActivity> activityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    /*Test que comprueba que el boton star y brillo son visibles
-     * y al hacer click realizan su funcion correspondiente*/
+    */
+/*Test que comprueba que el boton star y brillo son visibles
+     * y al hacer click realizan su funcion correspondiente*//*
+
     @Test
     public void mostrar_clickBotones() throws Exception {
         onView(withId(R.id.btn_start))
@@ -44,15 +47,19 @@ public class MainActivityTest{
                 .check(matches(isDisplayed()));
     }
 
-    /*Test que comprueba la visilibilidad de los botones mas y menos
-     * y su funcionalidad al hacer click*/
+    */
+/*Test que comprueba la visilibilidad de los botones mas y menos
+     * y su funcionalidad al hacer click*//*
+
     @Test
     public void btn_masymenos() {
         onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
     }
 
-    /*Test que comprueba que el seekbar llega al limite correspondiente*/
+    */
+/*Test que comprueba que el seekbar llega al limite correspondiente*//*
+
     @Test
     public void moverSeekbar() {
         onView(withId(R.id.seekBar1)).perform(clickSeekBar(51));
@@ -96,3 +103,4 @@ public class MainActivityTest{
 
 
 
+*/
