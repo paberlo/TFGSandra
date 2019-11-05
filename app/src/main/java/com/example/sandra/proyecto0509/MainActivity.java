@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity
         barra1.setProgress(0);
 
 
-        mostrarPorcentaje.setText("Medidor de Decibelios " + barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
+        mostrarPorcentaje.setText(barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
         barra1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
 
