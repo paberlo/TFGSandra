@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity
         mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
 
 
-        //Inicializo el valor inicial del progreso
+        //Inicializo el valor inicial del progreso //
         barra1.setProgress(0);
 
 
