@@ -24,6 +24,8 @@ public class PantallaSecundariaTest {
     public ActivityTestRule<PantallaSecundaria> activityTestRule= new ActivityTestRule<PantallaSecundaria>(PantallaSecundaria.class);
 
 
+
+
    /* Este test comprueba que los botones de la pantalla secundaria
     * (empezar, estadisticas y cerrar sesion)
     * son visible en su correspondiente activity*/
