@@ -299,11 +299,11 @@ public class MainActivity extends AppCompatActivity
         mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
 
 
-        //Inicializo el valor inicial del progreso //sandrita =))
+        //Inicializo el valor inicial del progreso
         barra1.setProgress(0);
 
 
-        mostrarPorcentaje.setText(barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
+        mostrarPorcentaje.setText("Medidor de Decibelios " + barra1.getProgress() + "db" + "/" + barra1.getMax() + "db");
         barra1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
 

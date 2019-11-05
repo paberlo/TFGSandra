@@ -99,7 +99,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         };
     }
 
-    private void registrar(String email, String password){
+    public void registrar(String email, String password){
 
         /*progressDialog.setMessage("Realizando registro...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
@@ -123,7 +123,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    private void iniciarsesion(String email, String password){
+    public void iniciarsesion(String email, String password){
         /*progressDialog.setMessage("Realizando consulta...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();*/
