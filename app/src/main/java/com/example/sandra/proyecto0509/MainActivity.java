@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity
     private Grabadora migrabador;
     private FirebaseUser user;
 
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMyyyy", Locale.getDefault());
     Date date = new Date();
     String fecha = dateFormat.format(date);
@@ -299,7 +300,7 @@ public class MainActivity extends AppCompatActivity
         mostrarPorcentaje=(TextView)findViewById(R.id.txtview_progreso);
 
 
-        //Inicializo el valor inicial del progreso 
+        //Inicializo el valor inicial del progreso
         barra1.setProgress(0);
 
 
@@ -597,6 +598,7 @@ public class MainActivity extends AppCompatActivity
         migrabador.BorrarAudio();
         super.onDestroy();
     }
+
 }
 
 
