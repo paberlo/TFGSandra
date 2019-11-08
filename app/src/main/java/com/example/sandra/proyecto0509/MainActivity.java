@@ -171,10 +171,10 @@ public class MainActivity extends AppCompatActivity
         myRef.setValue("Hello, World!");
 
 
-        //user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
         DatabaseReference dbr = fbd.getReference("users");
-        dbr.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
+        dbr.child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

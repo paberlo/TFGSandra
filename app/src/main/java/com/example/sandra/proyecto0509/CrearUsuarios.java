@@ -131,7 +131,6 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
                     //Toast.makeText(CrearUsuarios.this,"Ha iniciado sesion  el usuario con el email: "+ TextEmail.getText(),Toast.LENGTH_LONG).show();
                     Intent intencion = new Intent(getApplication(), CrearUsuarios.class);
                     startActivity(intencion);
