@@ -10,6 +10,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,6 +67,10 @@ public class MainActivityTest extends LoginTest {
 
     @Test
     public void btn_masymenos() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        DatabaseReference dbr = fbd.getReference("users");
+        dbr.child(user.getUid());
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
