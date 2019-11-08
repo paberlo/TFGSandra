@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private Grabadora migrabador;
-    private FirebaseUser user;
+    private FirebaseUser user=null;
 
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMyyyy", Locale.getDefault());
