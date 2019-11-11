@@ -47,17 +47,14 @@ public class PantallaSecundariaTest {
 
     @Test
     public void mostrarBotones(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr = fbd.getReference("users");
-        dbr.child(user.getUid());
+
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
-                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
 
                 }
             }
@@ -65,9 +62,16 @@ public class PantallaSecundariaTest {
         FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
+                    onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
                     intended(hasComponent(MainActivity.class.getName()),times(0));
                 }
             }
