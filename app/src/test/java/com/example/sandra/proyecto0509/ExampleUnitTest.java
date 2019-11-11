@@ -28,5 +28,8 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
 
+        CrearUsuarios aux= new CrearUsuarios();
+        aux.iniciarsesion(username, password);
+
     }
 }

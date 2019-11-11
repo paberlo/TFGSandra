@@ -44,7 +44,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest extends LoginTest {
+public class SMainActivityTest extends LoginTest {
 
     private String username="conchita2@hotmail.com";
     private String password="conchita";
@@ -90,7 +90,7 @@ public class MainActivityTest extends LoginTest {
      * y su funcionalidad al hacer click*/
 
 
-    /*@Test
+    @Test
     public void btn_masymenos() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -114,7 +114,7 @@ public class MainActivityTest extends LoginTest {
                 }
             }
         };
-    }*/
+    }
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
 
