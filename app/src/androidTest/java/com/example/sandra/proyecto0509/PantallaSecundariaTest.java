@@ -95,6 +95,17 @@ public class PantallaSecundariaTest {
                 }
             }
         });
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
+
+                }
+            }
+        });
         FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -119,6 +130,17 @@ public class PantallaSecundariaTest {
 
     @Test
     public void clickBotonResultados(){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
+
+                }
+            }
+        });
         FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
