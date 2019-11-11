@@ -95,7 +95,11 @@ public class SMainActivityTest extends LoginTest {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {}
+                if (task.isSuccessful()) {
+                    onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
+
+                }
             }
         });
         FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
@@ -110,7 +114,6 @@ public class SMainActivityTest extends LoginTest {
                 if (user != null) {
                     onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
-
                 }
             }
         };
@@ -144,6 +147,7 @@ public class SMainActivityTest extends LoginTest {
         };
 
     }
+
 
     public static ViewAction clickSeekBar(final int pos) {
         return new GeneralClickAction(
