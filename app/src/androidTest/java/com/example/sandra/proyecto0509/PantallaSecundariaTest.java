@@ -72,7 +72,7 @@ public class PantallaSecundariaTest {
                     onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
-                    intended(hasComponent(MainActivity.class.getName()),times(0));
+                    intended(hasComponent(PantallaSecundaria.class.getName()),times(0));
                 }
             }
         };
@@ -82,18 +82,59 @@ public class PantallaSecundariaTest {
     /*Test que comprueba que el boton empezar es clicable y abre
     * su activity correspondiente*/
 
-    /*@Test
+    @Test
     public void clickBotonEmpezar(){
-        onView(withId(R.id.btn_empezar)).perform(click());
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
+
+                }
+            }
+        });
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    onView(withId(R.id.btn_empezar)).perform(click());
+                    intended(hasComponent(MainActivity.class.getName()),times(0));
+                }
+            }
+        };
+
     }
-*/
+
 
     /*Test que comprueba que el boton resultados es clicable y abre
      * su activity correspondiente*/
 
-   /* @Test
+    @Test
     public void clickBotonResultados(){
-        onView(withId(R.id.btn_resultados)).perform(click());
-    }*/
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    onView(withId(R.id.btn_resultados)).perform(click());
+                    intended(hasComponent(Resultados.class.getName()),times(0));
+
+                }
+            }
+        };
+    }
 
 }

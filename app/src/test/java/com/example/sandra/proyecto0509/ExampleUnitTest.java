@@ -1,5 +1,6 @@
 package com.example.sandra.proyecto0509;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,8 +11,11 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
     @Test
     public void addition_isCorrect() {
+
+
         //CrearUsuarios aux= new CrearUsuarios();
         //assertEquals(aux.iniciarsesion("conchita2@hotmail.com", "conchita"));
     }
