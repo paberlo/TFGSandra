@@ -54,14 +54,25 @@ public class PantallaSecundariaTest {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful() && user!=null) {
+                if (task.isSuccessful()) {
                     onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
-                    intended(hasComponent(MainActivity.class.getName()),times(0));
+
                 }
             }
         });
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    intended(hasComponent(MainActivity.class.getName()),times(0));
+                }
+            }
+        };
+
     }
 
     /*Test que comprueba que el boton empezar es clicable y abre
