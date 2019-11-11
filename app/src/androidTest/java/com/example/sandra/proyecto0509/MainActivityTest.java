@@ -68,21 +68,21 @@ public class MainActivityTest extends LoginTest {
     }
 
     */
-/*Test que comprueba la visilibilidad de los botones mas y menos
+/*/*Test que comprueba la visilibilidad de los botones mas y menos
      * y su funcionalidad al hacer click*//*
 
 
     @Test
     public void btn_masymenos() {
-
+        
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        DatabaseReference dbr = fbd.getReference("users");
+        dbr.child(user.getUid());
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-                    DatabaseReference dbr = fbd.getReference("users");
-                    dbr.child(user.getUid());
                     onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
                 }

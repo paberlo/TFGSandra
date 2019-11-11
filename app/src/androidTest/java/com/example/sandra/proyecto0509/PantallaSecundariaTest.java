@@ -45,8 +45,8 @@ public class PantallaSecundariaTest {
 
     /*Test que comprueba que el boton resultados es clicable y abre
      * su activity correspondiente*/
-    @Test
+   /* @Test
     public void clickBotonResultados(){
         onView(withId(R.id.btn_resultados)).perform(click());
-    }
+    }*/
 }
