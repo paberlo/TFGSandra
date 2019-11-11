@@ -81,17 +81,17 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         btn_registrado.setOnClickListener(this);
 
         authStateListener=new FirebaseAuth.AuthStateListener() {
-            //comprobamos el inicio y el cierre de sesion
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user=firebaseAuth.getCurrentUser();
+                    //comprobamos el inicio y el cierre de sesion
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user=firebaseAuth.getCurrentUser();
 
-                if(user!=null){
-                    Toast.makeText(CrearUsuarios.this,"Sesion iniciada con email " +user.getEmail(),Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(CrearUsuarios.this,PantallaSecundaria.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
+                        if(user!=null){
+                            Toast.makeText(CrearUsuarios.this,"Sesion iniciada con email " +user.getEmail(),Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(CrearUsuarios.this,PantallaSecundaria.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
                 else{
                     Toast.makeText(CrearUsuarios.this,"Sesion cerrada",Toast.LENGTH_LONG).show();
                 }
