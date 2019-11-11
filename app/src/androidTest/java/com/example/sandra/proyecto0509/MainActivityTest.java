@@ -1,4 +1,4 @@
-/*
+
 package com.example.sandra.proyecto0509;
 
 import android.content.Intent;
@@ -35,6 +35,9 @@ import androidx.test.runner.AndroidJUnit4;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.Intents.times;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -48,56 +51,98 @@ public class MainActivityTest extends LoginTest {
 
     @Rule
     public ActivityTestRule<MainActivity> activityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-    */
-/*@Rule
-    public IntentsTestRule<CrearUsuarios> activityRule = new IntentsTestRule<>(CrearUsuarios.class);*//*
 
 
-    */
-/*Test que comprueba que el boton star y brillo son visibles
-     * y al hacer click realizan su funcion correspondiente*//*
+    /*Test que comprueba que el boton star y brillo son visibles
+     * y al hacer click realizan su funcion correspondiente*/
 
     @Test
     public void mostrar_clickBotones() throws Exception {
-        onView(withId(R.id.btn_start))
-                .perform(click())
-                .check(matches(isDisplayed()));
-        onView(withId(R.id.btn_brillo))
-                .perform(click())
-                .check(matches(isDisplayed()));
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {}
+            }
+        });
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    onView(withId(R.id.btn_start))
+                            .perform(click())
+                            .check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_brillo))
+                            .perform(click())
+                            .check(matches(isDisplayed()));
+
+                }
+            }
+        };
     }
 
-    */
-/*/*Test que comprueba la visilibilidad de los botones mas y menos
-     * y su funcionalidad al hacer click*//*
+    /*Test que comprueba la visilibilidad de los botones mas y menos
+     * y su funcionalidad al hacer click*/
 
 
     @Test
     public void btn_masymenos() {
-        
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr = fbd.getReference("users");
-        dbr.child(user.getUid());
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
-                    onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
-                }
+                if (task.isSuccessful()) {}
             }
         });
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
 
+                if (user != null) {
+                    onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
+
+                }
+            }
+        };
     }
 
-    */
-/*Test que comprueba que el seekbar llega al limite correspondiente*//*
+    /*Test que comprueba que el seekbar llega al limite correspondiente*/
 
     @Test
     public void moverSeekbar() {
-        onView(withId(R.id.seekBar1)).perform(clickSeekBar(51));
-        onView(withId(R.id.seekBar1)).perform(clickSeekBar(200));
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {}
+            }
+        });
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    onView(withId(R.id.seekBar1)).perform(clickSeekBar(51));
+                    onView(withId(R.id.seekBar1)).perform(clickSeekBar(200));
+
+                }
+            }
+        };
+
     }
 
     public static ViewAction clickSeekBar(final int pos) {
@@ -137,4 +182,3 @@ public class MainActivityTest extends LoginTest {
 
 
 
-*/

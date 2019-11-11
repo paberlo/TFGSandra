@@ -12,6 +12,10 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
 
+    private String username="conchita2@hotmail.com";
+    private String password="conchita";
+
+    private final String FAKE_STRING="Sesion iniciada con email " + username;
     @Test
     public void addition_isCorrect() {
 
