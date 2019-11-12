@@ -1,16 +1,15 @@
 package com.example.sandra.proyecto0509;
 
+
 import android.content.Context;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,6 +17,7 @@ import static org.mockito.Mockito.when;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
+@RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
 
     private String username="conchita2@hotmail.com";
@@ -25,9 +25,19 @@ public class ExampleUnitTest {
 
     final String FAKE_STRING="Sesion iniciada con email " + username;
 
+    @Mock
+    Context mMockContext;
+
+    @Test
+    public void inicio_sesion_ok(){
+        //CrearUsuarios nuevo_usuario=new CrearUsuarios(mMockContext);
+
+        //assertEquals(true,nuevo_usuario.iniciarsesion("conchita2@hotmail.com","conchita"));
+    }
     @Test
     public void addition_isCorrect() {
-        CrearUsuarios aux= new CrearUsuarios();
+       MainActivity aux= new MainActivity();
+
 
     }
 }

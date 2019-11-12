@@ -90,7 +90,7 @@ public class SMainActivityTest extends LoginTest {
      * y su funcionalidad al hacer click*/
 
 
-    @Test
+    /*@Test
     public void btn_masymenos() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -113,7 +113,7 @@ public class SMainActivityTest extends LoginTest {
                 }
             }
         };
-    }
+    }*/
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
 

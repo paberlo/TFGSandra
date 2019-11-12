@@ -99,7 +99,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
         };
     }
 
-    public void registrar(String email, String password){
+    public boolean registrar(String email, String password){
 
         /*progressDialog.setMessage("Realizando registro...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
@@ -121,9 +121,10 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
             }
         });
+        return true;
     }
 
-    public void iniciarsesion(String email, String password){
+    public boolean iniciarsesion(String email, String password){
         /*progressDialog.setMessage("Realizando consulta...");
         progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
         progressDialog.show();*/
@@ -143,6 +144,7 @@ public class CrearUsuarios extends AppCompatActivity implements View.OnClickList
 
             }
         });
+        return true;
         //progressDialog.dismiss();
     }
 
