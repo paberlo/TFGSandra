@@ -92,19 +92,24 @@ public class SMainActivityTest extends LoginTest {
 
     @Test
     public void btn_masymenos() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-        DatabaseReference dbr = fbd.getReference("users");
-        dbr.child(user.getUid());
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                DatabaseReference dbr = fbd.getReference("users");
+                dbr.child(user.getUid());
+
+                if (user != null) {
                     onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
                 }
             }
-        });
+        };
+
+
+
     }
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
