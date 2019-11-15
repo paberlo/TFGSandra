@@ -3,10 +3,17 @@ package com.example.sandra.proyecto0509;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.*;
 
@@ -30,9 +37,10 @@ public class ExampleUnitTest {
 
     @Test
     public void inicio_sesion_ok(){
-        //CrearUsuarios nuevo_usuario=new CrearUsuarios(mMockContext);
 
-        //assertEquals(true,nuevo_usuario.iniciarsesion("conchita2@hotmail.com","conchita"));
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        CrearUsuarios nuevo_usuario=new CrearUsuarios();
+        assertEquals(user.getUid(),nuevo_usuario.iniciarsesion(username,password));
     }
     @Test
     public void addition_isCorrect() {

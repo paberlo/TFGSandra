@@ -56,7 +56,7 @@ public class SMainActivityTest extends LoginTest {
     /*Test que comprueba que el boton star y brillo son visibles
      * y al hacer click realizan su funcion correspondiente*/
 
-    @Test
+    /*@Test
     public void mostrar_clickBotones() throws Exception {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -84,40 +84,32 @@ public class SMainActivityTest extends LoginTest {
                 }
             }
         };
-    }
+    }*/
 
     /*Test que comprueba la visilibilidad de los botones mas y menos
      * y su funcionalidad al hacer click*/
 
 
-    /*@Test
+    @Test
     public void btn_masymenos() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        DatabaseReference dbr = fbd.getReference("users");
+        dbr.child(user.getUid());
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {}
-            }
-        });
-        FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
-                DatabaseReference dbr = fbd.getReference("users");
-                dbr.child(user.getUid());
-                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
+                if (task.isSuccessful()) {
                     onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_menos)).perform(click()).check(matches(isDisplayed()));
                 }
             }
-        };
-    }*/
+        });
+    }
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
 
-    @Test
+    /*@Test
     public void moverSeekbar() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -176,7 +168,7 @@ public class SMainActivityTest extends LoginTest {
                     }
                 },
                 Press.FINGER);
-    }
+    }*/
 }
 
 
