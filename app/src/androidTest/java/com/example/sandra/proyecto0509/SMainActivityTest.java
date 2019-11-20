@@ -44,7 +44,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
 @RunWith(AndroidJUnit4.class)
-public class SMainActivityTest extends LoginTest {
+public class SMainActivityTest  {
 
     private String username="conchita2@hotmail.com";
     private String password="conchita";
@@ -56,7 +56,7 @@ public class SMainActivityTest extends LoginTest {
     /*Test que comprueba que el boton star y brillo son visibles
      * y al hacer click realizan su funcion correspondiente*/
 
-    /*@Test
+    @Test
     public void mostrar_clickBotones() throws Exception {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -84,7 +84,7 @@ public class SMainActivityTest extends LoginTest {
                 }
             }
         };
-    }*/
+    }
 
     /*Test que comprueba la visilibilidad de los botones mas y menos
      * y su funcionalidad al hacer click*/
@@ -92,7 +92,17 @@ public class SMainActivityTest extends LoginTest {
 
     @Test
     public void btn_masymenos() {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
 
+                }
+            }
+        });
         FirebaseAuth.AuthStateListener authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -100,6 +110,7 @@ public class SMainActivityTest extends LoginTest {
                 FirebaseDatabase fbd=FirebaseDatabase.getInstance();
                 DatabaseReference dbr = fbd.getReference("users");
                 dbr.child(user.getUid());
+                //FirebaseUser user2 = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
                     onView(withId(R.id.btn_mas)).perform(click()).check(matches(isDisplayed()));
@@ -114,7 +125,7 @@ public class SMainActivityTest extends LoginTest {
 
     /*Test que comprueba que el seekbar llega al limite correspondiente*/
 
-    /*@Test
+    @Test
     public void moverSeekbar() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -173,7 +184,7 @@ public class SMainActivityTest extends LoginTest {
                     }
                 },
                 Press.FINGER);
-    }*/
+    }
 }
 
 
