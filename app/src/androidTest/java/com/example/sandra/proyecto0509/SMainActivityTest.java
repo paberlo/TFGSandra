@@ -1,4 +1,3 @@
-/*
 
 package com.example.sandra.proyecto0509;
 
@@ -11,7 +10,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +18,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.test.espresso.ViewAction;
@@ -28,10 +25,8 @@ import androidx.test.espresso.action.CoordinatesProvider;
 import androidx.test.espresso.action.GeneralClickAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -54,9 +49,8 @@ public class SMainActivityTest  {
     public ActivityTestRule<MainActivity> activityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
 
-    */
 /*Test que comprueba que el boton star y brillo son visibles
-     * y al hacer click realizan su funcion correspondiente*//*
+     * y al hacer click realizan su funcion correspondiente*/
 
 
     @Test
@@ -89,9 +83,8 @@ public class SMainActivityTest  {
         };
     }
 
-    */
 /*Test que comprueba la visilibilidad de los botones mas y menos
-     * y su funcionalidad al hacer click*//*
+     * y su funcionalidad al hacer click*/
 
 
 
@@ -101,10 +94,9 @@ public class SMainActivityTest  {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    */
-/*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
-                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*//*
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));
 
 
                 }
@@ -130,8 +122,7 @@ public class SMainActivityTest  {
 
     }
 
-    */
-/*Test que comprueba que el seekbar llega al limite correspondiente*//*
+/*Test que comprueba que el seekbar llega al limite correspondiente*/
 
 
     @Test
@@ -199,4 +190,3 @@ public class SMainActivityTest  {
 
 
 
-*/

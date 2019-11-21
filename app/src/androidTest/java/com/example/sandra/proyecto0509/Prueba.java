@@ -34,6 +34,8 @@ public class Prueba {
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
         DatabaseReference dbr = fbd.getReference("users");
 
+        assertNull(fbd);
         assertNull(dbr);
+
     }
 }
