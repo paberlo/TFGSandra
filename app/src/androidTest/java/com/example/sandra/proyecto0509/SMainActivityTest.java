@@ -1,3 +1,4 @@
+/*
 
 package com.example.sandra.proyecto0509;
 
@@ -53,8 +54,10 @@ public class SMainActivityTest  {
     public ActivityTestRule<MainActivity> activityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
 
-    /*Test que comprueba que el boton star y brillo son visibles
-     * y al hacer click realizan su funcion correspondiente*/
+    */
+/*Test que comprueba que el boton star y brillo son visibles
+     * y al hacer click realizan su funcion correspondiente*//*
+
 
     @Test
     public void mostrar_clickBotones() throws Exception {
@@ -86,8 +89,10 @@ public class SMainActivityTest  {
         };
     }
 
-    /*Test que comprueba la visilibilidad de los botones mas y menos
-     * y su funcionalidad al hacer click*/
+    */
+/*Test que comprueba la visilibilidad de los botones mas y menos
+     * y su funcionalidad al hacer click*//*
+
 
 
     @Test
@@ -96,9 +101,11 @@ public class SMainActivityTest  {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    /*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
+                    */
+/*onView(withId(R.id.btn_empezar)).check(matches(isDisplayed()));
                     onView(withId(R.id.btn_resultados)).check(matches(isDisplayed()));
-                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*/
+                    onView(withId(R.id.btn_salir)).check(matches(isDisplayed()));*//*
+
 
                 }
             }
@@ -123,7 +130,9 @@ public class SMainActivityTest  {
 
     }
 
-    /*Test que comprueba que el seekbar llega al limite correspondiente*/
+    */
+/*Test que comprueba que el seekbar llega al limite correspondiente*//*
+
 
     @Test
     public void moverSeekbar() {
@@ -190,3 +199,4 @@ public class SMainActivityTest  {
 
 
 
+*/
