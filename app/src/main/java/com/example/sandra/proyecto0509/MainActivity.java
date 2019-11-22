@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity
 
         myRef.setValue("Hello, World!");
 
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseAuth authinstance=FirebaseAuth.getInstance();
+        user = authinstance.getCurrentUser();
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
         DatabaseReference dbr = fbd.getReference("users");
         dbr.child(user.getUid()).child(fecha).child("contadores").addValueEventListener(new ValueEventListener() {
